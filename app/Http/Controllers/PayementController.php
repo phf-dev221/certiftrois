@@ -112,12 +112,12 @@ class PayementController extends Controller
 
         session()->forget('token');
 
-        $demande = Demande::where('id',$payment->demande_id);
+        // $demande = Demande::where('id',$payment->demande_id);
 
-        $user = User::where('id',$demande->user_id)->first();
-        // return 'paiement reussi'
+        // $user = User::where('id',$demande->user_id)->first();
+        // // return 'paiement reussi'
 
-        return view('facture',compact('user','payment'));
+        return view('success');
         // return back();
     }
 
