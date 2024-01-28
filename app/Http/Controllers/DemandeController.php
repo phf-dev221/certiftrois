@@ -34,6 +34,20 @@ class DemandeController extends Controller
         }
     }
 
+    public function indexUser(){
+        $user = User::find(auth()->id());
+        if (!$user){
+            return response()->json(['error'=>"Utilisateur inconnu"],401);
+            }else{
+                $demandes=Demande::where("user_id",$user->id)->orderByDesc('created_at')->get();
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => 'Liste des demandes de l\'utilisateur',
+                    'demandes' => $demandes,
+                ]);
+    }
+}
+
     public function accept(Demande $demande)
     {
 

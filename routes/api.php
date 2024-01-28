@@ -17,7 +17,6 @@ use App\Http\Controllers\ForgotPasswordController;
 
 Route::middleware(['auth:api', 'admin'])->group(function () {
     /**biens */
-    Route::post('biens/store', [BienController::class, 'store']);
     Route::delete('biens/destroy/{bien}', [BienController::class, 'destroy']);
     Route::post('biens/accepte/{bien}', [BienController::class, 'acceptBien']);
     Route::post('biens/refuse/{bien}', [BienController::class, 'refuseBien']);
@@ -60,13 +59,16 @@ Route::middleware(['auth:api', 'admin'])->group(function () {
 });
 
 Route::middleware('auth:api')->group(function () {
+
+    Route::post('biens/store', [BienController::class, 'store']);
     Route::get('biens/bienUser', [BienController::class, 'bienUser']);
     Route::post('biens/update/{bien}', [BienController::class, 'update']);
     Route::post('biens/rendreBien/{bien}', [BienController::class, 'rendreBien']);
 
     Route::post('demandes/store', [DemandeController::class, 'store']);
     Route::post('demandes/update/{demande}', [DemandeController::class, 'update']);
-    Route::post('demandes/show/{demande}', [DemandeController::class, 'show']);
+    Route::get('demandes/show/{demande}', [DemandeController::class, 'show']);
+    Route::get('demandes/indexUser', [DemandeController::class, 'indexUser']);
     Route::delete('demandes/destroy/{demande}', [DemandeController::class, 'destroy']);
 
     Route::post('contacts/store', [ContactController::class, 'store']);
