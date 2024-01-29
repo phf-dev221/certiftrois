@@ -121,7 +121,7 @@ class BienTest extends TestCase
 
         $bien = Bien::factory()->create();
 
-        $response = $this->post("/api/biens/refuse/{$bien->id}");
+            $response = $this->post("/api/biens/refuse/{$bien->id}");
 
         $bien->refresh();
 

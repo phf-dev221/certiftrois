@@ -196,11 +196,13 @@ class DemandeController extends Controller
     public function update(UpdateDemandeRequest $request, Demande $demande)
     {
         try {
-            $demande->update($request->only(['duree', 'details', 'email']));
-
+            $demande->duree = $request->duree;
+            $demande->details = $request->details;
+            $demande->email = $request->email;
+            $demande->save();
             return response()->json([
                 'status_code' => 200,
-                'status_message' => 'Informations utilisateur mises à jour avec succès',
+                'status_message' => 'Demande modifiée',
                 'demande' => $demande,
             ]);
         } catch (Exception $e) {
