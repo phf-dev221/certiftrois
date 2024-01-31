@@ -76,7 +76,7 @@ class PayementController extends Controller
         ($request->all());
 
         // dd($jsonResponse);
-        if ($jsonResponse['success'] < 0) {
+        if (isset($jsonResponse['errors']) && count($jsonResponse['errors'])) {
             return back()->withErrors($jsonResponse['errors'][0]);
         } elseif ($jsonResponse['success'] == 1) {
             // dd($request);

@@ -77,11 +77,11 @@ class BienController extends Controller
 
             foreach ($request->file('image') as $file) {
                 $images = new Image();
-                $imagePath = $file->store('images', 'public');
-                $images->image = $imagePath;
+                $imageName = time().'_'.$file->getClientOriginalName();
+                $file-> move(public_path('/imagesBiens'), $imageName);
+                $images->image = $imageName;
                 $images->bien_id = $bien->id;
                 $images->save();
-
                 $imagesData[] = $images;
             }
             if (count($imagesData) > 0) {

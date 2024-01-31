@@ -149,7 +149,7 @@ class DemandeController extends Controller
             return response()->json([
                 'status_code' => 201,
                 'status_message' => 'Demande approuvée',
-                'bien' => $demande,
+                'demande' => $demande,
             ]);
         } catch (Exception $e) {
             return response()->json([

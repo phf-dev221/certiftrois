@@ -147,8 +147,6 @@ class BienTest extends TestCase
         $response->assertStatus(200);
 
         $this->assertEquals(0, $bien->rendu);
-
-
     }
 
     public function test_rendre_bien_en_tant_que_proprietaire()
