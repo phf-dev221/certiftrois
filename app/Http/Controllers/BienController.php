@@ -28,7 +28,7 @@ class BienController extends Controller
             foreach ($biens as $bien) {
                 $firstimage = Image::where('bien_id', $bien->id)->first();
                 $result[] = [
-                    'categorie'=>$categorie->nom,
+                    'categorie' => $categorie->nom,
                     'bien' => $bien,
                     'premiere_image' => $firstimage,
                 ];
@@ -73,31 +73,52 @@ class BienController extends Controller
             $bien->user_id = auth()->user()->id;
             $bien->categorie_id = $request->categorie_id;
             $bien->save();
-            $imagesData = [];
 
-            foreach ($request->file('image') as $file) {
-                $images = new Image();
-                $imageName = time().'_'.$file->getClientOriginalName();
-                $file-> move(public_path('/imagesBiens'), $imageName);
-                $images->image = $imageName;
-                $images->bien_id = $bien->id;
-                $images->save();
-                $imagesData[] = $images;
-            }
-            if (count($imagesData) > 0) {
+            if ($request->hasFile('image')) {
+                $imageFile = $request->file('image');
+                $imageName = time() . '_' . $imageFile->getClientOriginalName();
+                $imageFile->move(public_path('/imagesBiens'), $imageName);
+
+                $image = new Image();
+                $image->image = $imageName;
+                $image->bien_id = $bien->id;
+                $image->save();
                 return response()->json([
                     'message' => "Bien enregistré avec succès",
                     'bien' => $bien,
-                    'images' => $imagesData,
+                    'images' => $image,
                 ]);
             } else {
                 return response()->json([
                     'status_code' => 500,
-                    'status_message' => 'Erreur lors de l\'ajout des images du bien',
+                    'status_message' => 'Erreur lors de l\'ajout de l\'imagesdu bien',
                 ]);
             }
 
-        } catch (Exception $e) {
+        }
+
+        // foreach ($request->file('image') as $file) {
+        //     $images = new Image();
+        //     $imageName = time().'_'.$file->getClientOriginalName();
+        //     $file-> move(public_path('/imagesBiens'), $imageName);
+        //     $images->image = $imageName;
+        //     $images->bien_id = $bien->id;
+        //     $images->save();
+        //     $imagesData[] = $images;
+        // }
+        // if (count($imagesData) > 0) {
+        //     return response()->json([
+        //         'message' => "Bien enregistré avec succès",
+        //         'bien' => $bien,
+        //         'images' => $imagesData,
+        //     ]);
+        // } else {
+        //     return response()->json([
+        //         'status_code' => 500,
+        //         'status_message' => 'Erreur lors de l\'ajout des images du bien',
+        //     ]);
+        // }
+        catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
                 'status_code' => 500,
@@ -148,7 +169,7 @@ class BienController extends Controller
      */
     public function update(UpdateBienRequest $request, $id)
     {
-       
+
         try {
             $bien = Bien::findOrFail($id);
 
@@ -250,16 +271,17 @@ class BienController extends Controller
         ]);
     }
 
-    public function rendreBien(Bien $bien){
-        if(auth()->user()->id===$bien->user_id){
-            $bien->rendu=1;
+    public function rendreBien(Bien $bien)
+    {
+        if (auth()->user()->id === $bien->user_id) {
+            $bien->rendu = 1;
             $bien->save();
             return response()->json([
-                'status code'=>200,
-                'message'=>"le bien à été marqué comme rendu.",
-                ]);
-        }else{
-            return response()->json(['error'=>'Vous n\'êtes pas le propriétaire de ce bien']);
+                'status code' => 200,
+                'message' => "le bien à été marqué comme rendu.",
+            ]);
+        } else {
+            return response()->json(['error' => 'Vous n\'êtes pas le propriétaire de ce bien']);
         }
     }
 }

@@ -46,6 +46,8 @@ class PayementController extends Controller
             'data' => [
                 'price' => $request->price,
                 'qty' => $request->qty,
+
+
             ],
         ]);
         $cancel_url = route('payment.index');
@@ -96,6 +98,7 @@ class PayementController extends Controller
         if (!$token || !$data) {
             return redirect()->route('payment.index')->withErrors('Token ou données manquants');
         }
+        // dd($data);
 
         $data['token'] = $token;
 

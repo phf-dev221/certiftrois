@@ -130,7 +130,8 @@
                     <div class="col-sm-5">
                         <div class="logo">
                             {{-- <span class="logo-font">Go</span>Snippets --}}
-                            <img width="60%" height="50%" src="https://paytech.sn/assets/srcs/img/logo_paytech.png" alt="">
+                            <img width="60%" height="50%" src="https://paytech.sn/assets/srcs/img/logo_paytech.png"
+                                alt="">
                         </div>
                     </div>
                 </div>
@@ -145,7 +146,7 @@
                                 <input type="number" name="price" class="form-control" placeholder="Montant">
                             </div>
                             <div class="form-group">
-                                <input type="number" name="qty"  class="form-control" placeholder="Numéro demande">
+                                <input type="number" name="qty" value="{{ request('verifX') }}" class="form-control" placeholder="Numéro demande" readonly>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-block">Effectuer le Paiement</button>
@@ -163,9 +164,12 @@
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
                                     <div class="slider-feature-card">
-                                        <img src="https://paytech.sn/assets/srcs/img/ScreenshotForSlick/mobile-sc1.png" alt="">
+                                        <img src="https://paytech.sn/assets/srcs/img/ScreenshotForSlick/mobile-sc1.png"
+                                            alt="">
                                         <h3 class="slider-title">Plusieurs moyens d'intégration</h3>
-                                        <p class="slider-description">Nous offrons plusieurs options d’intégration simples et sécurisées pour effectuer des paiements partout dans le monde.</p>
+                                        <p class="slider-description">Nous offrons plusieurs options d’intégration
+                                            simples et sécurisées pour effectuer des paiements partout dans le monde.
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="carousel-item">
@@ -173,7 +177,9 @@
                                         <img src="https://paytech.sn/assets/srcs/img/new-image/paytech-7.png" alt="">
                                         <h3 class="slider-title">PAYTECH, Paiement
                                             rapide et sécurisé</h3>
-                                        <p class="slider-description">PayTech propose sa plateforme sécurisée de paiement en ligne pour faciliter les transactions entre les professionnels et leurs clients, avec ou sans site Web sans redirection.</p>
+                                        <p class="slider-description">PayTech propose sa plateforme sécurisée de
+                                            paiement en ligne pour faciliter les transactions entre les professionnels
+                                            et leurs clients, avec ou sans site Web sans redirection.</p>
                                     </div>
                                 </div>
                             </div>
