@@ -31,7 +31,7 @@ class AuthController extends Controller
         return response()->json([
             'status_code' => 201,
             'status_message' => 'liste des users',
-            'formation' => $users
+            'utilisateurs' => $users
         ]);
     }
     /**
