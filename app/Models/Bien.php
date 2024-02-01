@@ -20,12 +20,17 @@ class Bien extends Model
 
     public function categorie()
     {
-        return $this->belongsToMany(Categorie::class, 'roles_id');
+        return $this->belongsTo (Categorie::class);
     }
 
     public function images()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasOne(Image::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 }

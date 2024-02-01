@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BienRessource;
 use Exception;
 use App\Models\Bien;
 use App\Models\User;
@@ -21,24 +22,15 @@ class BienController extends Controller
     public function index(Categorie $categorie)
     {
         try {
-            $biens = Bien::where('statut', 'accepte')
+            $biens = Bien::with(["images", 'categorie', 'user'])->where('statut', 'accepte')
                 ->where('categorie_id', $categorie->id)
                 ->get();
-            $result = [];
-            foreach ($biens as $bien) {
-                $firstimage = Image::where('bien_id', $bien->id)->first();
-                $result[] = [
-                    'categorie' => $categorie->nom,
-                    'bien' => $bien,
-                    'premiere_image' => $firstimage,
-                ];
-            }
 
             return response()->json([
-                'status_code' => 200,
-                'status_message' => 'Biens acceptés avec leur première image récupérés avec succès',
-                'data' => $result,
-            ]);
+                'success' => true,
+                'status_body'=>'Biens acceptés',
+                'data' => BienRessource::collection($biens),
+            ], 200);
 
         } catch (Exception $e) {
             return response()->json([
@@ -138,15 +130,14 @@ class BienController extends Controller
      */
     public function show(Bien $bien)
     {
-        $images = Image::where('bien_id', $bien->id)->get();
+        $r = $bien->with(['images', 'categorie', 'user'])->first();
         try {
 
             return response()->json([
-                'status_code' => 200,
-                'status_message' => 'Bien récupéré avec succès',
-                'bien' => $bien,
-                'images' => $images
-            ]);
+                'success' => true,
+                'data' => new BienRessource($r),
+            ], 200);
+
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
@@ -169,42 +160,44 @@ class BienController extends Controller
      */
     public function update(UpdateBienRequest $request, $id)
     {
-
         try {
             $bien = Bien::findOrFail($id);
 
             if ($bien->user_id === auth()->user()->id) {
                 $bien->update($request->only(['libelle', 'description', 'date', 'lieu', 'categorie_id']));
+                $r = $bien->load(['images', 'categorie', 'user']);
 
                 if ($request->hasFile('image')) {
                     $bien->images()->delete();
-                    foreach ($request->file('image') as $file) {
-                        $images = new Image();
-                        $imagePath = $file->store('images', 'public');
-                        $images->image = $imagePath;
-                        $images->bien_id = $bien->id;
-                        $images->save();
 
-                    }
+                    $image = new Image();
+                    $imageFile = $request->file('image');
+                    $imageName = time() . '_' . $imageFile->getClientOriginalName();
+                    $imageFile->move(public_path('/imagesBiens'), $imageName);
+                    $image->image = $imageName;
+                    $image->bien_id = $bien->id;
+                    $image->save();
                 }
 
                 return response()->json([
-                    'message' => "Bien mis à jour avec succès",
-                    'bien' => $bien,
-                    'images' => $bien->images,
-                ]);
+                    'success' => true,
+                    'status_body' => 'bien modifié avec succes',
+                    'data' => new BienRessource($r),
+                ], 200);
             } else {
-                return new JsonResponse('vous n\'etes pas autorisé a effectuer cette opération');
+                return response()->json([
+                    'error' => 'Vous n\'êtes pas autorisé à effectuer cette opération.',
+                ], 403);
             }
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
                 'status_code' => 500,
                 'status_message' => 'Erreur lors de la mise à jour du bien',
-                'image' => $bien->images
             ]);
         }
     }
+
 
 
     /**
@@ -248,27 +241,19 @@ class BienController extends Controller
             'status message' => "Le bien a été refusé",
         ]);
     }
-
     public function bienUser()
     {
-        $biens = Bien::where('user_id', auth()->user()->id)
+        $biens = Bien::with(["images", 'categorie', 'user'])
+            ->where('user_id', auth()->user()->id)
             ->where('rendu', 0)
             ->where('statut', 'accepte')
             ->get();
 
-        $result = [];
-        foreach ($biens as $bien) {
-            $firstimage = Image::where('bien_id', $bien->id)->first();
-            $result[] = [
-                'bien' => $bien,
-                'premiere_image' => $firstimage,
-            ];
-        }
         return response()->json([
-            'status code' => 200,
-            'biens' => $result,
-            'status message' => "Liste des biens de l'utilisateur",
-        ]);
+            'success' => true,
+            'status_body'=>'les biens de l\'utilisateur',
+            'data' => BienRessource::collection($biens),
+        ], 200);
     }
 
     public function rendreBien(Bien $bien)

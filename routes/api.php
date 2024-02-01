@@ -62,7 +62,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('biens/store', [BienController::class, 'store']);
     Route::get('biens/bienUser', [BienController::class, 'bienUser']);
-    Route::post('biens/update/{bien}', [BienController::class, 'update']);
+    Route::post('biens/update/{id}', [BienController::class, 'update']);
     Route::post('biens/rendreBien/{bien}', [BienController::class, 'rendreBien']);
 
     Route::post('demandes/store', [DemandeController::class, 'store']);
