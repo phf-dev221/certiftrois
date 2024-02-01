@@ -20,7 +20,7 @@ class CategorieController extends Controller
         return response()->json([
             'status_code' => 200,
             'status_message' => 'Liste des catégories',
-            '$categorie' => $categories
+            'categorie' => $categories
         ]);
     }
 
