@@ -74,7 +74,7 @@ class CategorieController extends Controller
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'Informations categorie mise à jour avec succès',
-                '$categorie' => $categorie,
+                'categorie' => $categorie,
             ]);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -90,7 +90,7 @@ class CategorieController extends Controller
         return response()->json([
             'status_code' => 200,
             'status_message' => 'Information supprimée avec succès',
-            '$categorie' => $categorie,
+            'categorie' => $categorie,
         ]);
     }
 }
