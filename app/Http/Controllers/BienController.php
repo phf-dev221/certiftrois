@@ -165,11 +165,10 @@ class BienController extends Controller
 
             if ($bien->user_id === auth()->user()->id) {
                 $bien->update($request->only(['libelle', 'description', 'date', 'lieu', 'categorie_id']));
-                $r = $bien->load(['images', 'categorie', 'user']);
-
+                
                 if ($request->hasFile('image')) {
                     $bien->images()->delete();
-
+                    
                     $image = new Image();
                     $imageFile = $request->file('image');
                     $imageName = time() . '_' . $imageFile->getClientOriginalName();
@@ -178,6 +177,7 @@ class BienController extends Controller
                     $image->bien_id = $bien->id;
                     $image->save();
                 }
+                $r = $bien->load(['images', 'categorie', 'user']);
 
                 return response()->json([
                     'success' => true,
