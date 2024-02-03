@@ -17,7 +17,7 @@ class PubliciteController extends Controller
     public function index()
     {
         try {
-            $publicites = Publicite::where('isvalide', 1);
+            $publicites = Publicite::where('isvalide', 1)->get();
 
             return response()->json([
                 'status_code' => 200,
@@ -49,15 +49,19 @@ class PubliciteController extends Controller
         try {
             $pub = new Publicite();
 
-            $pub->media = $this->storeImage($request->media);
+            $imageFile = $request->file('media');
+            $imageName = time() . '_' . $imageFile->getClientOriginalName();
+            $imageFile->move(public_path('/imagesPubs'), $imageName);
+            $pub->media = $imageName;
             $pub->demande_id = $request->demande_id;
             $pub->save();
-
             return response()->json([
                 'status_code' => 201,
                 'status_message' => 'pub enregistré',
                 'bien' => $pub,
             ]);
+        
+    
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
