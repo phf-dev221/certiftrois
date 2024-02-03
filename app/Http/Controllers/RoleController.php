@@ -47,7 +47,7 @@ class RoleController extends Controller
     public function update(UpdateRoleRequest $request, Role $role)
     {
 
-        $role->update($request->only(['name', 'firstName', 'phone', 'email']));
+        $role->update($request->only(['nomRole']));
 
 
         return response()->json($role);

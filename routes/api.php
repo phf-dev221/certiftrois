@@ -56,6 +56,7 @@ Route::middleware(['auth:api', 'admin'])->group(function () {
     Route::get('users/nonArchives', [AuthController::class, 'userNonArchive']);
 
     Route::post('news', [SouscrisController::class, 'newsletter']);
+    Route::get('souscris/index', [SouscrisController::class, 'index']);
 });
 
 Route::middleware('auth:api')->group(function () {

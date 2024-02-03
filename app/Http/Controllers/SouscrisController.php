@@ -14,7 +14,12 @@ class SouscrisController extends Controller
      */
     public function index()
     {
-        //
+        $Souscris= Souscris::all();
+        return response()->json([
+            'status_code' => 200,
+            'status_message' => 'liste souscriptions ',
+            'souscriptions' =>  $Souscris
+        ]); 
     }
 
     /**
@@ -39,7 +44,7 @@ class SouscrisController extends Controller
         return response()->json([
             'status_code' => 200,
             'status_message' => 'souscription réussie',
-            'publicite' => $souscris,
+            'souscription' => $souscris,
         ]);   
     }
 
