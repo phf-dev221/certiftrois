@@ -135,19 +135,20 @@ class PubliciteController extends Controller
         try {
 
             if ($request->hasFile('media')) {
-                Storage::delete($publicite->media);
-            }
 
-            $publicite->update([
-                'media' => $request->hasFile('media') ? $this->storeImage($request->file('media')) : $publicite->media,
-                'demande_id' => $request->input('demande_id', $publicite->demande_id),
-            ]);
+                $imageFile = $request->file('media');
+                $imageName = time() . '_' . $imageFile->getClientOriginalName();
+                $imageFile->move(public_path('/imagesPubs'), $imageName);
+                $publicite->media = $imageName;
+                $publicite->demande_id = $request->demande_id;
+                $publicite->save();
 
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'Publicité mise à jour avec succès',
                 'publicite' => $publicite,
             ]);
+        }
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
