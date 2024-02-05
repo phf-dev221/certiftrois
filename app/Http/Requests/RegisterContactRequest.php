@@ -27,7 +27,7 @@ class RegisterContactRequest extends FormRequest
         return [
             'nom'=>'required|regex:/^[A-Za-zÀ-ÖØ-öø-ÿ]+$/',
             'email'=>'required|email',
-            'message'=>'required|string'
+            'messag'=>'required|string'
         ];
     }
 

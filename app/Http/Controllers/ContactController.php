@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use App\Models\User;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\UpdateContactRequest;
 use App\Http\Requests\RegisterContactRequest;
 
@@ -38,13 +40,23 @@ class ContactController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(RegisterContactRequest $request)
-    {
+    {   
+        // $user=User::where('id',auth()->user()->id)->first();
+
         $contact = new Contact();
         $contact->nom = $request->nom;
         $contact->email = $request->email;
-        $contact->message = $request->message;
+        $contact->message = $request->messag;
+        if(auth()->user()){
         $contact->user_id = auth()->user()->id;
+        }
         $contact->save();
+       
+        Mail::send('contact', ['nom' => $request->nom,'email'=>$request->email,'messag'=>$request->messag], function ($message) use ($request){
+            $message->to('admin@gmail.com');
+            $message->subject('Nouveau message de contact');
+        });
+
         return response()->json([
             'status_code' => 200,
             'status_message' => 'contact enregistré',
@@ -84,7 +96,7 @@ class ContactController extends Controller
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'Informations contact mise à jour avec succès',
-                '$contact' => $contact,
+                'contact' => $contact,
             ]);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -101,7 +113,7 @@ class ContactController extends Controller
         return response()->json([
             'status_code' => 200,
             'status_message' => 'Informations contact supprimées avec succès',
-            '$contact' => $contact,
+            'contact' => $contact,
         ]);
 
     }

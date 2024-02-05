@@ -72,8 +72,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('demandes/indexUser', [DemandeController::class, 'indexUser']);
     Route::delete('demandes/destroy/{demande}', [DemandeController::class, 'destroy']);
 
-    Route::post('contacts/store', [ContactController::class, 'store']);
-
+    
     Route::post('temoignages/store', [TemoignageController::class, 'store']);
 
     Route::post('logout', [AuthController::class, 'logout']);
@@ -94,6 +93,7 @@ Route::get('pubs/show/{publicite}', [PubliciteController::class, 'show']);
 
 /*routes pour contact*/
 // Route::post('contacts/{contact}/update', [ContactController::class, 'update']);
+Route::post('contacts/store', [ContactController::class, 'store']);
 
 /*routes pour temoignage*/
 Route::get('temoignages/index', [TemoignageController::class, 'index']);
