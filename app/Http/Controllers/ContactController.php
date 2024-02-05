@@ -46,13 +46,14 @@ class ContactController extends Controller
         $contact = new Contact();
         $contact->nom = $request->nom;
         $contact->email = $request->email;
+        $contact->phone = $request->phone;
         $contact->message = $request->messag;
         if(auth()->user()){
         $contact->user_id = auth()->user()->id;
         }
         $contact->save();
        
-        Mail::send('contact', ['nom' => $request->nom,'email'=>$request->email,'messag'=>$request->messag], function ($message) use ($request){
+        Mail::send('contact', ['nom' => $request->nom,'email'=>$request->email,'messag'=>$request->messag,'phone'=>$request->phone], function ($message) use ($request){
             $message->to('admin@gmail.com');
             $message->subject('Nouveau message de contact');
         });

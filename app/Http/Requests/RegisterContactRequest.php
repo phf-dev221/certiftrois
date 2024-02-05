@@ -27,7 +27,9 @@ class RegisterContactRequest extends FormRequest
         return [
             'nom'=>'required|regex:/^[A-Za-zÀ-ÖØ-öø-ÿ]+$/',
             'email'=>'required|email',
-            'messag'=>'required|string'
+            'messag'=>'required|string',
+            'phone' =>'required|regex:/^7[0-9]{8}$/',
+
         ];
     }
 
@@ -48,6 +50,8 @@ class RegisterContactRequest extends FormRequest
             'nom.regex'=>'le format du nm est incorrect',
             'email.required'=>'l\'email est requis',
             'email.email'=>"format email incorrect",
+            'phone.required'=>'le numéro de téléphone est requis',
+            'phone.regex'=>'le format du numéro est incorrect',
 
         ];
     }
