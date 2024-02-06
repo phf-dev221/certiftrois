@@ -23,6 +23,7 @@ class BienRessource extends JsonResource
             "statut" => $this->statut,
             "categorie" => $this->categorie->nom,
             "user" => $this->user->firstName,
+            "userId" => $this->user->id,
             "image" => $this->images ? $this->images->image : null,
         ];
     }
