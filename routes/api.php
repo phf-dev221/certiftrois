@@ -79,6 +79,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
     Route::post('users/update/{user}', [AuthController::class, 'update']);
+    Route::post('users/changePassword', [AuthController::class, 'changePassword']);
     Route::get('users/show/{user}', [AuthController::class, 'show']);
     Route::post('users/whatsapp/{user}', [AuthController::class, 'sendWhatsapp'])->name('whatsapp');
 });

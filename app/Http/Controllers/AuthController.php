@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\RegisterUserRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -214,4 +215,39 @@ class AuthController extends Controller
         return response()->json(['error' => $e->getMessage()], 500);
     }
     }
+
+public function changePassword(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'current_password' => 'required',
+        'new_password' => 'required|different:current_password|regex:/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!])(.{8,})$/',
+        'confirm_password' => 'required|same:new_password',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'status_code' => 400,
+            'status_message' => 'Validation error',
+            'errors' => $validator->errors(),
+        ], 400);
+    }
+
+    $user = auth()->user();
+
+    if (!Hash::check($request->current_password, $user->password)) {
+        return response()->json([
+            'status_code' => 401,
+            'status_message' => 'Mot de passe actuel incorrect',
+        ], 401);
+    }
+
+    $user->password = Hash::make($request->new_password);
+    $user->save();
+
+    return response()->json([
+        'status_code' => 200,
+        'status_message' => 'Mot de passe changé avec succes',
+    ]);
+}
+
 }
