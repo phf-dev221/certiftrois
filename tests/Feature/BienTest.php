@@ -36,7 +36,7 @@ class BienTest extends TestCase
             "description" => "gfhgfgv",
             "date" => "2023-01-14",
             "categorie_id" => 2,
-            'image' => [$imageFile],
+            // 'image' => [$imageFile],
             "statut" => "en attente",
             "user_id" => 15,
             "rendu" => 0
@@ -68,27 +68,25 @@ class BienTest extends TestCase
             'password' => 'password',
         ]);
 
-        $response = $this->get('api/biens/show/23');
+        $response = $this->get('api/biens/show/79');
         $response->assertStatus(200);
     }
-
 
     public function test_destroy_bien()
-    {
-        $user = user::factory()->create();
-        $response = $this->post('/api/login', [
-            'email' => $user->email,
-            'password' => 'password',
-        ]);
+{
+  
+    $user = User::factory()->create();
+    $this->actingAs($user, 'api');
 
-        $bien = Bien::factory()->create();
+    $bien = Bien::factory()->create(['user_id' => $user->id]);
 
-        $response = $this->delete("/api/biens/{$bien->id}/destroy");
+    $response = $this->delete("/api/biens/destroy/{$bien->id}");
 
-        $response->assertStatus(200);
+    $response->assertStatus(200);
 
-        $this->assertDatabaseMissing('biens', ['id' => $bien->id]);
-    }
+    $this->assertDatabaseMissing('biens', ['id' => $bien->id]);
+}
+
 
     public function test_accepter_bien()
     {
@@ -98,7 +96,7 @@ class BienTest extends TestCase
             'password' => 'password',
         ]);
 
-        $bien = Bien::factory()->create();
+        $bien = Bien::factory()->create(['user_id' => $user->id]);
 
         $response = $this->post("/api/biens/accepte/{$bien->id}");
 
@@ -119,7 +117,7 @@ class BienTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $bien = Bien::factory()->create();
+        $bien = Bien::factory()->create(['user_id' => $user->id]);
 
             $response = $this->post("/api/biens/refuse/{$bien->id}");
 

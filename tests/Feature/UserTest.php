@@ -63,7 +63,7 @@ class UserTest extends TestCase
             'email' => $user->email,
             'password' => 'password',
         ]);
-        $response = $this->put('/api/25/archive');
+        $response = $this->put("/api/archive{$user->id}");
 
         $user->refresh();
         $response->assertStatus(200);

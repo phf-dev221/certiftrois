@@ -49,6 +49,10 @@ Route::middleware(['auth:api', 'admin'])->group(function () {
     /*temoignages*/
     Route::post('temoignages/accept/{temoignage}', [TemoignageController::class, 'accept']);
 
+    /*roles*/
+    Route::post('roles/destroy/{role}', [RoleController::class, 'destroy']);
+    Route::get('roles/index', [RoleController::class, 'index']);
+
     /*utilisateurs*/
     Route::get('users/index', [AuthController::class, 'index']);
     Route::put('/archive{user}', [AuthController::class, 'archive']);
