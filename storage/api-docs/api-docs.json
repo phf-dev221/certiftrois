@@ -23,9 +23,54 @@
         "multipart/form-data"
     ],
     "paths": {
+        "/api/souscris/index": {
+            "get": {
+                "summary": "Liste des souscris",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Newsletter"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
         "/api/news/store": {
             "post": {
-                "summary": "Souscris a un newslatter",
+                "summary": "Souscrire a un newsletter",
                 "description": "",
                 "responses": {
                     "201": {
@@ -169,6 +214,110 @@
                 }
             }
         },
+        "http://localhost:8000/api/roles/index": {
+            "get": {
+                "summary": "liste des roles",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Role"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "http://localhost:8000/api/roles/destroy/{role}": {
+            "post": {
+                "summary": "supprimer un role",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Role"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "role",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
         "http://localhost:8000/api/roles/store": {
             "post": {
                 "summary": "creer un role",
@@ -289,6 +438,101 @@
                     {
                         "in": "path",
                         "name": "role",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/demandes/indexUser": {
+            "get": {
+                "summary": "Liste des demandes d'un Utilisateur",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Demande publicité"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/demandes/show/{demande}": {
+            "get": {
+                "summary": "Voir une demande",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Demande publicité"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "demande",
                         "type": "string"
                     },
                     {
@@ -686,9 +930,9 @@
                                 }
                             },
                             "example": {
-                                "duree": 5.2,
-                                "details": "details",
-                                "email": "leyeleye@gmail.com"
+                                "duree": 87,
+                                "details": "detailsodifié",
+                                "email": "leye@gmail.com"
                             }
                         }
                     }
@@ -1025,276 +1269,6 @@
                 ]
             }
         },
-        "/api/temoignages/store": {
-            "post": {
-                "summary": "Enregistrer témoignage",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "temoignage"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "contenu": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "contenu": "votre site est extra ordinaire"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/temoignages/index": {
-            "get": {
-                "summary": "Voir tous les temoignages",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "temoignage"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/temoignages/show/{temoignage}": {
-            "get": {
-                "summary": "Voir un témoignage",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "temoignage"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "temoignage",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/temoignages/accep/{temoignage}": {
-            "post": {
-                "summary": "Accepter un témoignage",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "temoignage"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "temoignage",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "http://127.0.0.1:8002/api/contacts/index": {
-            "get": {
-                "summary": "Liste des contacts",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "contact"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
         "/api/contacts/store": {
             "post": {
                 "summary": "Enregistré contact",
@@ -1359,24 +1333,28 @@
                                     "email": {
                                         "type": "string"
                                     },
-                                    "message": {
+                                    "messag": {
                                         "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "integer"
                                     }
                                 }
                             },
                             "example": {
                                 "nom": "tamba",
                                 "email": "tamba@gmail.com",
-                                "message": "bonjour comment va "
+                                "messag": "bonjour comment va ",
+                                "phone": 778546200
                             }
                         }
                     }
                 }
             }
         },
-        "/api/contacts/destroy/{contact}": {
+        "/api/pubs/update/{publicite}": {
             "post": {
-                "summary": "Supprimer un contact",
+                "summary": "Modifier une publicité",
                 "description": "",
                 "responses": {
                     "201": {
@@ -1417,12 +1395,12 @@
                     }
                 },
                 "tags": [
-                    "contact"
+                    "Publicités"
                 ],
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "contact",
+                        "name": "publicite",
                         "type": "string"
                     },
                     {
@@ -1430,12 +1408,37 @@
                         "name": "User-Agent",
                         "type": "string"
                     }
-                ]
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "media": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "demande_id": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "media": {
+                                    "type": "string",
+                                    "format": "binary"
+                                },
+                                "demande_id": "2"
+                            }
+                        }
+                    }
+                }
             }
         },
-        "/api/contacts/show/{contact}": {
+        "/api/pubs/index": {
             "get": {
-                "summary": "voir un contact",
+                "summary": "liste des publicités",
                 "description": "",
                 "responses": {
                     "200": {
@@ -1467,14 +1470,9 @@
                     }
                 },
                 "tags": [
-                    "contact"
+                    "Publicités"
                 ],
                 "parameters": [
-                    {
-                        "in": "path",
-                        "name": "contact",
-                        "type": "string"
-                    },
                     {
                         "in": "header",
                         "name": "User-Agent",
@@ -1584,51 +1582,6 @@
                         "name": "publicite",
                         "type": "string"
                     },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/pubs/index": {
-            "get": {
-                "summary": "liste des publicités",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Publicités"
-                ],
-                "parameters": [
                     {
                         "in": "header",
                         "name": "User-Agent",
@@ -2075,19 +2028,19 @@
                                     "categorie_id": {
                                         "type": "string"
                                     },
-                                    "image[]": {
+                                    "image": {
                                         "type": "string",
                                         "format": "binary"
                                     }
                                 }
                             },
                             "example": {
-                                "libelle": "maison",
+                                "libelle": "maison manoir",
                                 "date": "2024-01-18",
-                                "description": "fdescriptionsss",
+                                "description": "fdescriptionsss chiat",
                                 "lieu": "Malika",
-                                "categorie_id": "1",
-                                "image[]": {
+                                "categorie_id": "2",
+                                "image": {
                                     "type": "string",
                                     "format": "binary"
                                 }
@@ -2097,7 +2050,7 @@
                 }
             }
         },
-        "/api/biens/show/{bien}": {
+        "": {
             "get": {
                 "summary": "récupérer un bien",
                 "description": "",
@@ -2267,7 +2220,7 @@
                                     "date": {
                                         "type": "string"
                                     },
-                                    "image[]": {
+                                    "image": {
                                         "type": "string",
                                         "format": "binary"
                                     },
@@ -2277,15 +2230,94 @@
                                 }
                             },
                             "example": {
-                                "libelle": "foin",
-                                "lieu": "thies",
-                                "description": "description du foin trouvé",
-                                "date": "2023-12-22",
-                                "image[]": {
+                                "libelle": "oignon",
+                                "lieu": "mboro",
+                                "description": "description de l'oignon trouvé",
+                                "date": "2023-01-12",
+                                "image": {
                                     "type": "string",
                                     "format": "binary"
                                 },
-                                "categorie_id": "2"
+                                "categorie_id": "4"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/changePassword": {
+            "post": {
+                "summary": "changer mot de passe",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "current_password": {
+                                        "type": "string"
+                                    },
+                                    "new_password": {
+                                        "type": "string"
+                                    },
+                                    "confirm_password": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "current_password": "papaf@ll21",
+                                "new_password": "@zerty123",
+                                "confirm_password": "@zerty123"
                             }
                         }
                     }
@@ -2363,7 +2395,7 @@
                 }
             }
         },
-        "/api/users/whatsapp/{user}": {
+        "/api/users/whatsapp/5": {
             "post": {
                 "summary": "whatsapp",
                 "description": "",
@@ -2636,7 +2668,7 @@
                 ]
             }
         },
-        "/api/archive/{user}": {
+        "/api/archive{user}": {
             "put": {
                 "summary": "archivage",
                 "description": "",
@@ -2852,7 +2884,7 @@
                                 }
                             },
                             "example": {
-                                "email": "sall@gmail.com",
+                                "email": "admin@gmail.com",
                                 "password": "@zerty123"
                             }
                         }
