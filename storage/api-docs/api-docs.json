@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Your API Title",
-        "description": "Your API Description",
+        "title": "API EUREKA",
+        "description": "Ceci est la documentation d'une API REST qui permet de déclarer des objets trouvés",
         "version": "1.0.0"
     },
     "security": [

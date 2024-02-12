@@ -92,9 +92,10 @@ class PayementController extends Controller
 
     public function success(Request $request, $code)
     {
-        $token = session('token') ?? '';
+        // $token = session('token') ?? '';
+        $token = random_int(1,1000);
         $data = $request->query('data');
-
+        // dd($token);
         if (!$token || !$data) {
             return redirect()->route('payment.index')->withErrors('Token ou données manquants');
         }

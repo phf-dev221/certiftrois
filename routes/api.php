@@ -7,6 +7,7 @@ use App\Http\Controllers\BienController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DemandeController;
+use App\Http\Controllers\PayementController;
 use App\Http\Controllers\SouscrisController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\PubliciteController;
@@ -122,3 +123,9 @@ Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showRese
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 
+Route::get('payment', [PayementController::class, 'index'])->name('payment.index');
+Route::post('/checkout', [PayementController::class, 'payment'])->name('payment.submit');
+Route::get('ipn', [PayementController::class, 'ipn'])->name('paytech-ipn');
+Route::get('payment-success/{code}', [PayementController::class, 'success'])->name('payment.success');
+Route::get('payment/{code}/success', [PayementController::class, 'paymentSuccessView'])->name('payment.success.view');
+Route::get('payment-cancel', [PayementController::class, 'cancel'])->name('paytech.cancel');
