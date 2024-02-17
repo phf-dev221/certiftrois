@@ -11,7 +11,7 @@ RUN apt-get update \
      locales coreutils apt-utils git libicu-dev g++ libpng-dev libxml2-dev libzip-dev libonig-dev libxslt-dev;
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
-    echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen && \
+    echo "fr_FR.UTF-8 UTF-8" >> /etc/localew y!------------------------------------------------------------------------------------------------------vc1.gen && \
     locale-gen
 
 RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \

@@ -28,6 +28,8 @@ class RegisterBienRequest extends FormRequest
             'libelle'=>'required|string',
             'description'=>'required|string',
             'date'=>'required|date',
+            'categorie_id'=>'required|integer',
+            'type_bien'=>'required',
             'lieu'=>'required|string',
             'image[]' => 'image|max:10000|mimes:jpeg,png,jpg',
         ];
@@ -45,12 +47,15 @@ class RegisterBienRequest extends FormRequest
     public function messages(){
         return [
             'libelle.required'=>'le libellé est requis',
+            'type_bien.required"=>"le type de bien est requis',
             'description.required'=>'la description est requise',
             'libelle.string'=>'Format du libellé incorrect',
+            'categorie_id.integer'=>'Format de la categorie incorrect',
             'description.string'=>'la description a un format incorrect',
             'date.required'=>'la date est requise',
             'date.date'=>'Format date incorrect',
             'lieu.required'=>'le lieu est requis',
+            'categorie_id.required'=>'la categorie est requise',
             'lieu.string'=>'Format lieu incorrect',
             'image.required'=>"l'image est requise",
             'image.image'=>"le format de l'image est incorrect",

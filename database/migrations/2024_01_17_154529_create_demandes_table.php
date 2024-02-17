@@ -16,8 +16,11 @@ return new class extends Migration
             $table->id();
             $table->integer('duree');
             $table->string('email');
-            $table->longText('details');
-            $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
+            $table->longText('details')->nullable();
+            $table->string('media');
+            $table->integer('phone');
+            $table->boolean('estValide');
+            $table->string('nom');
             $table->enum('etat',['en attente','accepte','refuse'])->default('en attente');
             $table->timestamps();
         });

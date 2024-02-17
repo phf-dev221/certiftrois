@@ -31,6 +31,7 @@ class UpdateBienRequest extends FormRequest
             'date'=>'required|date',
             'lieu'=>'required|string',
             'categorie_id'=>'required|integer',
+            'type_bien'=>'required',
             'image[]' => 'sometimes|image|max:10000|mimes:jpeg,png,jpg',
         ];
     }
@@ -59,7 +60,9 @@ class UpdateBienRequest extends FormRequest
             'lieu.integer'=>'le type de categorie est au mauvais format',
             'lieu.string'=>'Format lieu incorrect',
             'image.image'=>"le format de l'image est incorrect",
-            'image.max'=>'la taille de l\'image est trop grande'
+            'image.max'=>'la taille de l\'image est trop grande',
+            'type_bien.required"=>"le type de bien est requis',
+            
 
         ];
     }

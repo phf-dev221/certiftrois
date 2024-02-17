@@ -68,8 +68,8 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('biens/store', [BienController::class, 'store']);
     Route::get('biens/bienUser', [BienController::class, 'bienUser']);
+    Route::get('biens/bienUserPerdu', [BienController::class, 'bienUserPerdu']);//liste des biens perdu de l'utilisateur
     Route::post('biens/update/{id}', [BienController::class, 'update']);
-    Route::post('biens/rendreBien/{bien}', [BienController::class, 'rendreBien']);
 
     Route::post('demandes/store', [DemandeController::class, 'store']);
     Route::post('demandes/update/{demande}', [DemandeController::class, 'update']);
@@ -91,6 +91,7 @@ Route::middleware('auth:api')->group(function () {
 
 /*routes pour biens*/
 Route::get('biens/index/{categorie}', [BienController::class, 'index']);
+Route::get('biens/index_perdu/{categorie}', [BienController::class, 'index_perdu']);//liste biens perdus
 Route::get('biens/show/{bien}', [BienController::class, 'show']);
 
 /*routes pour pub */

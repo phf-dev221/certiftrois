@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('lieu');
             $table->longText('description');
             $table->date('date');
-            $table->boolean('rendu')->default(0);
+            $table->enum('type_bien',['bien trouve', 'bien perdu']);
+             $table->boolean('estExpire')->default(0);
             $table->enum('statut',['en attente', 'accepte', 'refuse'])->default('en attente');
             $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(Categorie::class)->constrained()->onDelete('cascade');
