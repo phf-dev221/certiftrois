@@ -19,7 +19,7 @@ use App\Http\Controllers\ForgotPasswordController;
 Route::middleware(['auth:api', 'admin'])->group(function () {
     /**biens */
     Route::delete('biens/destroy/{bien}', [BienController::class, 'destroy']);
-    Route::post('biens/accepte/{bien}', [BienController::class, 'acceptBien']);
+    // Route::post('biens/accepte/{bien}', [BienController::class, 'acceptBien']);
     Route::post('biens/refuse/{bien}', [BienController::class, 'refuseBien']);
 
     /*demandes publicites*/
