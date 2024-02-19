@@ -38,10 +38,80 @@ class BienController extends Controller
             return response()->json([
                 'error' => $e->getMessage(),
                 'status_code' => 500,
-                'status_message' => 'Erreur lors de la récupération des biens trouvés acceptés',
+                'status_message' => 'Erreur lors de la récupération des biens trouvés',
             ]);
         }
     }
+
+    public function listeBiensTousType()
+    {
+        try {
+            $biens = Bien::with(["images", 'categorie', 'user'])->where('statut', 'en attente')
+                ->where('estExpire',0)
+                ->get();
+
+            return response()->json([
+                'success' => true,
+                'status_body'=>'Liste de tous les biens',
+                'data' => BienRessource::collection($biens),
+            ], 200);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+                'status_code' => 500,
+                'status_message' => 'Erreur lors de la récupération des biens',
+            ]);
+        }
+    }
+
+    public function listeBiensTrouvesSansCategorie()
+    {
+        try {
+            $biens = Bien::with(["images", 'categorie', 'user'])->where('statut', 'en attente')
+                ->where('estExpire',0)
+                ->where('type_bien','bien trouve')
+                ->get();
+
+            return response()->json([
+                'success' => true,
+                'status_body'=>'Biens trouvés sans categorie',
+                'data' => BienRessource::collection($biens),
+            ], 200);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+                'status_code' => 500,
+                'status_message' => 'Erreur lors de la récupération des biens ',
+            ]);
+        }
+    }
+
+    public function listeBiensPerdusSansCategorie()
+    {
+        try {
+            $biens = Bien::with(["images", 'categorie', 'user'])->where('statut', 'en attente')
+                ->where('estExpire',0)
+                ->where('type_bien','bien perdu')
+                ->get();
+
+            return response()->json([
+                'success' => true,
+                'status_body'=>'Biens perdus sans categorie',
+                'data' => BienRessource::collection($biens),
+            ], 200);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+                'status_code' => 500,
+                'status_message' => 'Erreur lors de la récupération des biens',
+            ]);
+        }
+    }
+
+
 
     public function index_perdu(Categorie $categorie)
     {

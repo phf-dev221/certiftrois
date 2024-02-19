@@ -19,7 +19,7 @@ return new class extends Migration
             $table->longText('details')->nullable();
             $table->string('media');
             $table->integer('phone');
-            $table->boolean('estValide');
+            $table->boolean('estValide')->default(1);
             $table->string('nom');
             $table->enum('etat',['en attente','accepte','refuse'])->default('en attente');
             $table->timestamps();

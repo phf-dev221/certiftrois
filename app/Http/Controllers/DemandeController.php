@@ -18,55 +18,45 @@ class DemandeController extends Controller
     public function index()
     {
         try {
-            $demandes = Demande::where('etat', 'en attente')->get();
+            $publicites = Demande::where('etat', 'en attente')->get();
 
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'Liste des demandes en attente',
-                'demandes' => $demandes,
+                'publicites' => $publicites,
             ]);
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
                 'status_code' => 500,
-                'status_message' => 'Erreur lors de la récupération des demandes',
+                'status_message' => 'Erreur lors de la récupération des publicites',
             ]);
         }
     }
 
-    public function indexUser(){
-        $user = User::find(auth()->id());
-        if (!$user){
-            return response()->json(['error'=>"Utilisateur inconnu"],401);
-            }else{
-                $demandes=Demande::where("user_id",$user->id)->orderByDesc('created_at')->get();
-                return response()->json([
-                    'status_code' => 200,
-                    'status_message' => 'Liste des demandes de l\'utilisateur',
-                    'demandes' => $demandes,
-                ]);
-    }
-}
+//     public function indexUser(){
+//         $user = User::find(auth()->id());
+//         if (!$user){
+//             return response()->json(['error'=>"Utilisateur inconnu"],401);
+//             }else{
+//                 $demandes=Demande::where("user_id",$user->id)->orderByDesc('created_at')->get();
+//                 return response()->json([
+//                     'status_code' => 200,
+//                     'status_message' => 'Liste des demandes de l\'utilisateur',
+//                     'demandes' => $demandes,
+//                 ]);
+//     }
+// }
 
     public function accept(Demande $demande)
     {
-
-        $user = User::where('id',$demande->user_id)->first();
         $number = $demande->id;
-        // try {
             $demande->update([
                 'etat' => 'accepte'
             ]);
             
 
-            Mail::to($user->email)->send(new PayeMail($number));
-            // };
-            // return view('payement',compact('numero'));
-            // Mail::to($user->email)->send(new PayeMail());   
-
-        // } catch (Exception $e) {
-        //     return response()->json($e);
-        // }
+            Mail::to($demande->email)->send(new PayeMail($number));
     }
 
     public function refuse(Demande $demande)
@@ -78,7 +68,7 @@ class DemandeController extends Controller
             $demande->save();
             return response()->json([
                 'status_code' => 200,
-                'status_message' => "Vous avez refusé cette demande"
+                'status_message' => "Vous avez refusé cette publicite"
             ]);
         } catch (Exception $e) {
             return response()->json($e);
@@ -88,18 +78,18 @@ class DemandeController extends Controller
     public function acceptedDemande()
     {
         try {
-            $demandes = Demande::where('etat', 'accepte')->get();
+            $publicites = Demande::where('etat', 'accepte')->get();
 
             return response()->json([
                 'status_code' => 200,
-                'status_message' => 'Liste des demandes acceptées',
-                'demandes' => $demandes,
+                'status_message' => 'Liste des publicites acceptées',
+                'publicites' => $publicites,
             ]);
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
                 'status_code' => 500,
-                'status_message' => 'Erreur lors de la récupération des demandes',
+                'status_message' => 'Erreur lors de la récupération des publicites',
             ]);
         }
     }
@@ -107,18 +97,18 @@ class DemandeController extends Controller
     public function refusedDemande()
     {
         try {
-            $demandes = Demande::where('etat', 'refuse')->get();
+            $publicites = Demande::where('etat', 'refuse')->get();
 
             return response()->json([
                 'status_code' => 200,
-                'status_message' => 'Liste des demandes refusées',
-                'demandes' => $demandes,
+                'status_message' => 'Liste des publicites refusées',
+                'publicites' => $publicites,
             ]);
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
                 'status_code' => 500,
-                'status_message' => 'Erreur lors de la récupération des demandes',
+                'status_message' => 'Erreur lors de la récupération des publicites',
             ]);
         }
     }
@@ -143,19 +133,24 @@ class DemandeController extends Controller
             $demande->duree = $request->duree;
             $demande->details = $request->details;
             $demande->email = $request->email;
-            $demande->user_id = auth()->user()->id;
+            $demande->nom = $request->nom;
+            $demande->phone = $request->phone;
+            $imageFile = $request->file('media');
+            $imageName = time() . '_' . $imageFile->getClientOriginalName();
+            $imageFile->move(public_path('/imagesPubs'), $imageName);
+            $demande->media = $imageName;
             $demande->save();
 
             return response()->json([
                 'status_code' => 201,
-                'status_message' => 'Demande approuvée',
-                'demande' => $demande,
+                'status_message' => 'publicité approuvée',
+                'publicite' => $demande,
             ]);
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
                 'status_code' => 500,
-                'status_message' => 'Erreur lors de l\'ajout du bien',
+                'status_message' => 'Erreur lors de l\'ajout de la publicité',
             ]);
         }
     }
@@ -169,15 +164,15 @@ class DemandeController extends Controller
             if ($demande) {
                 return response()->json([
                     'status_code' => 200,
-                    'status_message' => 'Demande trouvée',
-                    'demande' => $demande,
+                    'status_message' => 'publicité trouvée',
+                    'publicite' => $demande,
                 ]);
             }
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
                 'status_code' => 404,
-                'status_message' => 'Demande non trouvée',
+                'status_message' => 'publicite non trouvée',
             ]);
         }
     }
@@ -199,11 +194,18 @@ class DemandeController extends Controller
             $demande->duree = $request->duree;
             $demande->details = $request->details;
             $demande->email = $request->email;
-            $demande->save();
+            $demande->nom = $request->nom;
+            $demande->phone = $request->phone;
+            $imageFile = $request->file('media');
+            $imageName = time() . '_' . $imageFile->getClientOriginalName();
+            $imageFile->move(public_path('/imagesPubs'), $imageName);
+            $demande->media = $imageName;
+            $demande->update();
+
             return response()->json([
                 'status_code' => 200,
-                'status_message' => 'Demande modifiée',
-                'demande' => $demande,
+                'status_message' => 'publicité modifiée',
+                'publicite' => $demande,
             ]);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -220,13 +222,13 @@ class DemandeController extends Controller
             $demande->delete();
             return response()->json([
                 'status_code' => 200,
-                'status_message' => 'Demande supprimée avec succès',
+                'status_message' => 'publicité supprimée avec succès',
             ]);
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
                 'status_code' => 500,
-                'status_message' => 'Erreur lors de la suppression de la demande',
+                'status_message' => 'Erreur lors de la suppression de la publicité',
             ]);
         }
     }

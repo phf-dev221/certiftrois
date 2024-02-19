@@ -25,9 +25,12 @@ class UpdateDemandeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'details'=>'required|string',
-            'email'=>'required|unique:users,email|email',
-            'duree'=>'required|numeric'
+            'details'=>'sometimes|string',
+            'email'=>'required|email',
+            'duree'=>'required|numeric',
+            'nom'=>'required',
+            'phone'=>'required',
+            'media'=>'required',
         ];
     }
 

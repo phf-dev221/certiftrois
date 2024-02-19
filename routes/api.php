@@ -71,15 +71,13 @@ Route::middleware('auth:api')->group(function () {
     Route::get('biens/bienUserPerdu', [BienController::class, 'bienUserPerdu']);//liste des biens perdu de l'utilisateur
     Route::post('biens/update/{id}', [BienController::class, 'update']);
 
-    Route::post('demandes/store', [DemandeController::class, 'store']);
-    Route::post('demandes/update/{demande}', [DemandeController::class, 'update']);
     Route::get('demandes/show/{demande}', [DemandeController::class, 'show']);
-    Route::get('demandes/indexUser', [DemandeController::class, 'indexUser']);
+    // Route::get('demandes/indexUser', [DemandeController::class, 'indexUser']);
     Route::delete('demandes/destroy/{demande}', [DemandeController::class, 'destroy']);
-
+    
     
     Route::post('temoignages/store', [TemoignageController::class, 'store']);
-
+    
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
@@ -91,10 +89,17 @@ Route::middleware('auth:api')->group(function () {
 
 /*routes pour biens*/
 Route::get('biens/index/{categorie}', [BienController::class, 'index']);
+Route::get('biens/listeBiensTousType/', [BienController::class, 'listeBiensTousType']);
+Route::get('biens/trouves', [BienController::class, 'listeBiensTrouvesSansCategorie']);
+Route::get('biens/perdus', [BienController::class, 'listeBiensPerdusSansCategorie']);
+
+
 Route::get('biens/index_perdu/{categorie}', [BienController::class, 'index_perdu']);//liste biens perdus
 Route::get('biens/show/{bien}', [BienController::class, 'show']);
 
 /*routes pour pub */
+Route::post('demandes/update/{demande}', [DemandeController::class, 'update']);
+Route::post('demandes/store', [DemandeController::class, 'store']);
 Route::get('pubs/index', [PubliciteController::class, 'index']);
 Route::get('pubs/show/{publicite}', [PubliciteController::class, 'show']);
 
