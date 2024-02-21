@@ -28,38 +28,40 @@ Route::middleware(['auth:api', 'admin'])->group(function () {
     Route::get('demandes/acceptedDemande', [DemandeController::class, 'acceptedDemande']);
     Route::get('demandes/refusedDemande', [DemandeController::class, 'refusedDemande']);
     Route::get('demandes/index', [DemandeController::class, 'index']);
-
+    Route::get('demandes/pubPayes', [DemandeController::class, 'pubPayes']);
+    
+    
     /*publicités*/
     Route::post('pubs/update/{publicite}', [PubliciteController::class, 'update']);
     Route::post('pubs/destroy/{publicite}', [PubliciteController::class, 'destroy']);
     Route::post('pubs/invalide/{publicite}', [PubliciteController::class, 'invalidPub']);
     Route::post('pubs/store', [PubliciteController::class, 'store']);
-
+    
     /*catégories de biens*/
     Route::post('categories/update/{categorie}', [CategorieController::class, 'update']);
     Route::post('categories/destroy/{categorie}', [CategorieController::class, 'destroy']);
     Route::post('categories/store', [CategorieController::class, 'store']);
     Route::get('categories/index', [CategorieController::class, 'index']);
-
+    
     /*contacts*/
     Route::get('contacts/index', [ContactController::class, 'index']);
     Route::get('contacts/show/{contact}', [ContactController::class, 'show']);
     Route::delete('contacts/destroy/{contact}', [ContactController::class, 'destroy']);
 
-
+    
     /*temoignages*/
     Route::post('temoignages/accept/{temoignage}', [TemoignageController::class, 'accept']);
 
     /*roles*/
     Route::post('roles/destroy/{role}', [RoleController::class, 'destroy']);
     Route::get('roles/index', [RoleController::class, 'index']);
-
+    
     /*utilisateurs*/
     Route::get('users/index', [AuthController::class, 'index']);
     Route::put('/archive{user}', [AuthController::class, 'archive']);
     Route::get('users/archives', [AuthController::class, 'userArchive']);
     Route::get('users/nonArchives', [AuthController::class, 'userNonArchive']);
-
+    
     Route::post('news', [SouscrisController::class, 'newsletter']);
     Route::get('souscris/index', [SouscrisController::class, 'index']);
 });
@@ -70,7 +72,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('biens/bienUser', [BienController::class, 'bienUser']);
     Route::get('biens/bienUserPerdu', [BienController::class, 'bienUserPerdu']);//liste des biens perdu de l'utilisateur
     Route::post('biens/update/{id}', [BienController::class, 'update']);
-
+    
     Route::get('demandes/show/{demande}', [DemandeController::class, 'show']);
     // Route::get('demandes/indexUser', [DemandeController::class, 'indexUser']);
     Route::delete('demandes/destroy/{demande}', [DemandeController::class, 'destroy']);
@@ -98,6 +100,7 @@ Route::get('biens/index_perdu/{categorie}', [BienController::class, 'index_perdu
 Route::get('biens/show/{bien}', [BienController::class, 'show']);
 
 /*routes pour pub */
+Route::get('demandes/pubAffichable', [DemandeController::class, 'pubAffichable']);
 Route::post('demandes/update/{demande}', [DemandeController::class, 'update']);
 Route::post('demandes/store', [DemandeController::class, 'store']);
 Route::get('pubs/index', [PubliciteController::class, 'index']);

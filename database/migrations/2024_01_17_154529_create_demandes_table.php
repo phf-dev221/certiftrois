@@ -14,12 +14,14 @@ return new class extends Migration
     {
         Schema::create('demandes', function (Blueprint $table) {
             $table->id();
-            $table->integer('duree');
+            $table->date('date_debut');
+            $table->date('date_fin');
             $table->string('email');
             $table->longText('details')->nullable();
-            $table->string('media');
+            $table->string('image')->nullable();
             $table->integer('phone');
-            $table->boolean('estValide')->default(1);
+            $table->boolean('estValide')->default(0);
+            $table->boolean('estPaye')->default(0);
             $table->string('nom');
             $table->enum('etat',['en attente','accepte','refuse'])->default('en attente');
             $table->timestamps();

@@ -31,7 +31,7 @@ class RegisterBienRequest extends FormRequest
             'categorie_id'=>'required|integer',
             'type_bien'=>'required',
             'lieu'=>'required|string',
-            'image[]' => 'image|max:10000|mimes:jpeg,png,jpg',
+            'image' => 'image|max:10000|mimes:jpeg,png,jpg',
         ];
     }
 

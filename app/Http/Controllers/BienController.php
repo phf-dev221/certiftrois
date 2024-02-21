@@ -343,9 +343,8 @@ class BienController extends Controller
     {
         $biens = Bien::with(["images", 'categorie', 'user'])
             ->where('user_id', auth()->user()->id)
-            ->where('rendu', 0)
             ->where('statut', 'en attente')
-            ->where('type','bien trouve')
+            ->where('type_bien','bien trouve')
             ->where('estExpire',0)
             ->get();
 

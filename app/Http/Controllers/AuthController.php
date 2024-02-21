@@ -112,7 +112,7 @@ class AuthController extends Controller
                 return response()->json([
                     'status_code' => 400,
                     'status_message' => 'Le mot de passe et la confirmation ne correspondent pas.',
-                ], 400);
+                ], 403);
             }
 
             $user = new User();

@@ -27,10 +27,11 @@ class UpdateDemandeRequest extends FormRequest
         return [
             'details'=>'sometimes|string',
             'email'=>'required|email',
-            'duree'=>'required|numeric',
+            'date_fin'=>'required|date',
+            'date_debut'=>'required|date',
             'nom'=>'required',
             'phone'=>'required',
-            'media'=>'required',
+            'image'=>'sometimes|image|max:10000|mimes:jpeg,png,jpg',
         ];
     }
 
@@ -48,9 +49,14 @@ class UpdateDemandeRequest extends FormRequest
             'details.required'=>'le detail est requis',
             'details.string'=>'Format du detail incorrect',
             'duree.required'=>'la durée est requise',
-            'duree.numeric'=>'la durée a un format incorrect',
             'email.required'=>'l\'email est requis',
             'email.email'=>"format email incorrect",
+            'image.image'=>'Veuillez ajouter une image',
+            'image.max'=>'Taille de l\'image trop grande',
+            'date_fin.required'=>'la date de fin est requise',
+            'date_fin.date'=>'la date de fin a un format incorrect',
+            'date_debut.required'=>'la date de debut est requise',
+            'date_debut.date'=>'la date de debut a un format incorrect',
 
         ];
     }

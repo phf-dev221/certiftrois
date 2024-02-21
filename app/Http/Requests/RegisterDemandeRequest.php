@@ -27,11 +27,11 @@ class RegisterDemandeRequest extends FormRequest
         return [
             'details'=>'sometimes|string',
             'email'=>'required|email',
-            'duree'=>'required|numeric',
+            'date_fin'=>'required|date',
+            'date_debut'=>'required|date',
             'nom'=>"required|regex:/^[A-Za-zÀ-ÖØ-öø-ÿ '-]+$/",
             'phone'=>'required|regex:/^7[0-9]{8}$/',
-            'media'=>'required',
-            
+            'image' => 'image|max:10000|mimes:jpeg,png,jpg', 
         ];
     }
 
@@ -48,16 +48,18 @@ class RegisterDemandeRequest extends FormRequest
         return [
             'details.required'=>'le detail est requis',
             'details.string'=>'Format du detail incorrect',
-            'duree.required'=>'la durée est requise',
-            'duree.numeric'=>'la durée a un format incorrect',
+            'date_fin.required'=>'la date de fin est requise',
+            'date_fin.date'=>'la date de fin a un format incorrect',
+            'date_debut.required'=>'la date de debut est requise',
+            'date_debut.date'=>'la date de debut a un format incorrect',
             'email.required'=>'l\'email est requis',
             'email.email'=>"format email incorrect",
             'nom.required'=>'le nom est requis',
             'nom.regex'=>'format du nom incorrect',
             'phone.required'=>'le numéro de téléphone est requis',
             'phone.regex'=>'Le format du numéro de téléphone est incorrect',
-            'media.required'=>'Vous devez ajouter un media'
-
+            'image.image'=>'Veuillez ajouter une image',
+            'image.max'=>'Taille de l\'image trop grande'
         ];
     }
 }

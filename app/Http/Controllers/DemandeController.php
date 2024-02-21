@@ -24,13 +24,51 @@ class DemandeController extends Controller
                 'status_code' => 200,
                 'status_message' => 'Liste des demandes en attente',
                 'publicites' => $publicites,
-            ]);
+            ],200);
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
                 'status_code' => 500,
                 'status_message' => 'Erreur lors de la récupération des publicites',
-            ]);
+            ],500);
+        }
+    }
+
+    public function pubPayes()
+    {
+        try {
+            $publicites = Demande::where('estPaye', 1)->get();
+
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'Liste des demandes de publicités payées',
+                'publicites' => $publicites,
+            ],200);
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+                'status_code' => 500,
+                'status_message' => 'Erreur lors de la récupération des publicites',
+            ],500);
+        }
+    }
+
+    public function pubAffichable()
+    {
+        try {
+            $publicites = Demande::where('estValide', 1)->get();
+
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'Liste des demandes de publicités a afficher',
+                'publicites' => $publicites,
+            ],200);
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+                'status_code' => 500,
+                'status_message' => 'Erreur lors de la récupération des publicites',
+            ],500);
         }
     }
 
@@ -53,10 +91,12 @@ class DemandeController extends Controller
         $number = $demande->id;
             $demande->update([
                 'etat' => 'accepte'
-            ]);
-            
-
+            ]); 
             Mail::to($demande->email)->send(new PayeMail($number));
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => "Vous avez accepté cette publicite"
+            ],200);
     }
 
     public function refuse(Demande $demande)
@@ -84,13 +124,13 @@ class DemandeController extends Controller
                 'status_code' => 200,
                 'status_message' => 'Liste des publicites acceptées',
                 'publicites' => $publicites,
-            ]);
+            ],200);
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
                 'status_code' => 500,
                 'status_message' => 'Erreur lors de la récupération des publicites',
-            ]);
+            ],500);
         }
     }
 
@@ -103,13 +143,13 @@ class DemandeController extends Controller
                 'status_code' => 200,
                 'status_message' => 'Liste des publicites refusées',
                 'publicites' => $publicites,
-            ]);
+            ],200);
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
                 'status_code' => 500,
                 'status_message' => 'Erreur lors de la récupération des publicites',
-            ]);
+            ],500);
         }
     }
 
@@ -130,28 +170,31 @@ class DemandeController extends Controller
         try {
             $demande = new Demande();
 
-            $demande->duree = $request->duree;
+            $demande->date_debut = $request->date_debut;
+            $demande->date_fin = $request->date_fin;
             $demande->details = $request->details;
             $demande->email = $request->email;
             $demande->nom = $request->nom;
             $demande->phone = $request->phone;
-            $imageFile = $request->file('media');
+            if($request->image){
+            $imageFile = $request->file('image');
             $imageName = time() . '_' . $imageFile->getClientOriginalName();
             $imageFile->move(public_path('/imagesPubs'), $imageName);
-            $demande->media = $imageName;
+            $demande->image = $imageName;
+            }
             $demande->save();
 
             return response()->json([
                 'status_code' => 201,
                 'status_message' => 'publicité approuvée',
                 'publicite' => $demande,
-            ]);
+            ],201);
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
                 'status_code' => 500,
                 'status_message' => 'Erreur lors de l\'ajout de la publicité',
-            ]);
+            ],500);
         }
     }
 
@@ -166,14 +209,14 @@ class DemandeController extends Controller
                     'status_code' => 200,
                     'status_message' => 'publicité trouvée',
                     'publicite' => $demande,
-                ]);
+                ],200);
             }
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
                 'status_code' => 404,
                 'status_message' => 'publicite non trouvée',
-            ]);
+            ],500);
         }
     }
 
@@ -191,22 +234,25 @@ class DemandeController extends Controller
     public function update(UpdateDemandeRequest $request, Demande $demande)
     {
         try {
-            $demande->duree = $request->duree;
+            $demande->date_debut = $request->date_debut;
+            $demande->date_fin = $request->date_fin;
             $demande->details = $request->details;
             $demande->email = $request->email;
             $demande->nom = $request->nom;
             $demande->phone = $request->phone;
-            $imageFile = $request->file('media');
+            if($request->image){
+            $imageFile = $request->file('image');
             $imageName = time() . '_' . $imageFile->getClientOriginalName();
             $imageFile->move(public_path('/imagesPubs'), $imageName);
-            $demande->media = $imageName;
+            $demande->image = $imageName;
+            }
             $demande->update();
 
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'publicité modifiée',
                 'publicite' => $demande,
-            ]);
+            ],200);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -221,15 +267,15 @@ class DemandeController extends Controller
 
             $demande->delete();
             return response()->json([
-                'status_code' => 200,
+                'status_code' => 204,
                 'status_message' => 'publicité supprimée avec succès',
-            ]);
+            ],204);
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
                 'status_code' => 500,
                 'status_message' => 'Erreur lors de la suppression de la publicité',
-            ]);
+            ],500);
         }
     }
 }

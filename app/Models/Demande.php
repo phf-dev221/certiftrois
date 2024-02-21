@@ -10,10 +10,10 @@ class Demande extends Model
     use HasFactory;
 
     protected $fillable=[
-        'duree',
+        'date_debut',
+        'date_fin',
         'detail',
         'email',
         'etat',
-        'user_id'
     ];
 }

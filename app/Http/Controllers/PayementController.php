@@ -109,6 +109,12 @@ class PayementController extends Controller
             'amount' => $data['price'],
             'demande_id' => $data['qty'],
         ]);
+        if($payment){
+        $demande = Demande::where('id', $data['qty'])->first();
+        $demande->estPaye=1;
+        $demande->save();
+        }
+        
 
         if (!$payment) {
             return redirect()->route('payment.index')->withErrors('Échec de la sauvegarde du paiement');
