@@ -26,7 +26,7 @@ class UpdateDemandeRequest extends FormRequest
     {
         return [
             'details'=>'sometimes|string',
-            'email'=>'required|email',
+            'email'=>'required|regex:/^[A-Za-z]+[A-Za-z0-9._%+-]+@+[A-Za-z][A-Za-z0-9.-]+.[A-Za-z]{2,}$/',
             'date_fin'=>'required|date',
             'date_debut'=>'required|date',
             'nom'=>'required',
@@ -50,7 +50,7 @@ class UpdateDemandeRequest extends FormRequest
             'details.string'=>'Format du detail incorrect',
             'duree.required'=>'la durée est requise',
             'email.required'=>'l\'email est requis',
-            'email.email'=>"format email incorrect",
+            'email.regex'=>"format email incorrect",
             'image.image'=>'Veuillez ajouter une image',
             'image.max'=>'Taille de l\'image trop grande',
             'date_fin.required'=>'la date de fin est requise',

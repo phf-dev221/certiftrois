@@ -143,7 +143,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(RegisterUserRequest $request, User $user)
     {
         try {
             $user->update($request->only(['name', 'firstName', 'phone', 'email']));

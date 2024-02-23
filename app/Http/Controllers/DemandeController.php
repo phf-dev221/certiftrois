@@ -6,6 +6,7 @@ use Exception;
 use App\Models\User;
 use App\Mail\PayeMail;
 use App\Models\Demande;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\UpdateDemandeRequest;
 use App\Http\Requests\RegisterDemandeRequest;
@@ -30,7 +31,7 @@ class DemandeController extends Controller
                 'error' => $e->getMessage(),
                 'status_code' => 500,
                 'status_message' => 'Erreur lors de la récupération des publicites',
-            ],500);
+            ],422);
         }
     }
 
@@ -47,9 +48,9 @@ class DemandeController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
-                'status_code' => 500,
+                'status_code' => 422,
                 'status_message' => 'Erreur lors de la récupération des publicites',
-            ],500);
+            ],422);
         }
     }
 
@@ -66,9 +67,9 @@ class DemandeController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
-                'status_code' => 500,
+                'status_code' => 422,
                 'status_message' => 'Erreur lors de la récupération des publicites',
-            ],500);
+            ],422);
         }
     }
 
@@ -86,13 +87,21 @@ class DemandeController extends Controller
 //     }
 // }
 
-    public function accept(Demande $demande)
+    public function accept(Demande $demande, Request $request)
     {
+        $montant  = $request->input('montant');
         $number = $demande->id;
+        $data = [
+            'montant' => $montant,
+            'number' => $number
+        ];
+
             $demande->update([
                 'etat' => 'accepte'
             ]); 
-            Mail::to($demande->email)->send(new PayeMail($number));
+            // dd($data);
+
+            Mail::to($demande->email)->send(new PayeMail($data));
             return response()->json([
                 'status_code' => 200,
                 'status_message' => "Vous avez accepté cette publicite"
@@ -128,9 +137,9 @@ class DemandeController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
-                'status_code' => 500,
+                'status_code' => 422,
                 'status_message' => 'Erreur lors de la récupération des publicites',
-            ],500);
+            ],422);
         }
     }
 
@@ -147,9 +156,9 @@ class DemandeController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
-                'status_code' => 500,
+                'status_code' => 422,
                 'status_message' => 'Erreur lors de la récupération des publicites',
-            ],500);
+            ],422);
         }
     }
 
@@ -192,9 +201,9 @@ class DemandeController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
-                'status_code' => 500,
+                'status_code' => 422,
                 'status_message' => 'Erreur lors de l\'ajout de la publicité',
-            ],500);
+            ],422);
         }
     }
 
@@ -216,7 +225,7 @@ class DemandeController extends Controller
                 'error' => $e->getMessage(),
                 'status_code' => 404,
                 'status_message' => 'publicite non trouvée',
-            ],500);
+            ],422);
         }
     }
 
@@ -254,7 +263,7 @@ class DemandeController extends Controller
                 'publicite' => $demande,
             ],200);
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json(['error' => $e->getMessage()], 422);
         }
     }
 
@@ -273,9 +282,9 @@ class DemandeController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
-                'status_code' => 500,
+                'status_code' => 422,
                 'status_message' => 'Erreur lors de la suppression de la publicité',
-            ],500);
+            ],422);
         }
     }
 }

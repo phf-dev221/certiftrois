@@ -10,10 +10,9 @@
 <body>
 
     <p>Bonjour, votre demande de partenariat publicitaire a été accepter par EUREKA</p>
-    <p>Nous vous prions de suivre ce lien pour effectuer le paiement de la somme convenue<br>
+    <p>Nous vous prions de suivre ce lien pour effectuer le paiement pour le prix équivalent<br>
     </p>
-    <p>lien de paiement: <a href="http://127.0.0.1:8000/api/payment?verifX={{$number}}">ici</a>
-    </p>
+    <p>lien de paiement: <a href="http://127.0.0.1:8000/api/payment?verifX={{$data['number']}}&verifY={{$data['montant']}}">ici</a></p>
 </body>
 
 </html>

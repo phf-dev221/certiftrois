@@ -10,7 +10,6 @@ use App\Http\Controllers\DemandeController;
 use App\Http\Controllers\PayementController;
 use App\Http\Controllers\SouscrisController;
 use App\Http\Controllers\CategorieController;
-use App\Http\Controllers\PubliciteController;
 use App\Http\Controllers\TemoignageController;
 use App\Http\Controllers\ForgotPasswordController;
 
@@ -29,13 +28,6 @@ Route::middleware(['auth:api', 'admin'])->group(function () {
     Route::get('demandes/refusedDemande', [DemandeController::class, 'refusedDemande']);
     Route::get('demandes/index', [DemandeController::class, 'index']);
     Route::get('demandes/pubPayes', [DemandeController::class, 'pubPayes']);
-    
-    
-    /*publicités*/
-    Route::post('pubs/update/{publicite}', [PubliciteController::class, 'update']);
-    Route::post('pubs/destroy/{publicite}', [PubliciteController::class, 'destroy']);
-    Route::post('pubs/invalide/{publicite}', [PubliciteController::class, 'invalidPub']);
-    Route::post('pubs/store', [PubliciteController::class, 'store']);
     
     /*catégories de biens*/
     Route::post('categories/update/{categorie}', [CategorieController::class, 'update']);
@@ -103,8 +95,6 @@ Route::get('biens/show/{bien}', [BienController::class, 'show']);
 Route::get('demandes/pubAffichable', [DemandeController::class, 'pubAffichable']);
 Route::post('demandes/update/{demande}', [DemandeController::class, 'update']);
 Route::post('demandes/store', [DemandeController::class, 'store']);
-Route::get('pubs/index', [PubliciteController::class, 'index']);
-Route::get('pubs/show/{publicite}', [PubliciteController::class, 'show']);
 
 /*routes pour contact*/
 // Route::post('contacts/{contact}/update', [ContactController::class, 'update']);

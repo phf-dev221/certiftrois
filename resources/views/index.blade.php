@@ -143,7 +143,7 @@
                         <form class="login-form" action="{{ route('payment.submit') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <input type="number" name="price" class="form-control" placeholder="Montant">
+                                <input type="number" name="price" class="form-control" placeholder="Montant" value="{{ request('verifY')}}" readonly >
                             </div>
                             <div class="form-group">
                                 <input type="number" name="qty" value="{{ request('verifX') }}" class="form-control" placeholder="Numéro demande" readonly>

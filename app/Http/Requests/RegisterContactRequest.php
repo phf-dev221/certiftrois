@@ -26,7 +26,7 @@ class RegisterContactRequest extends FormRequest
     {
         return [
             'nom'=>'required|regex:/^[A-Za-zÀ-ÖØ-öø-ÿ]+$/',
-            'email'=>'required|email',
+            'email'=>'required|regex:/^[A-Za-z]+[A-Za-z0-9._%+-]+@+[A-Za-z][A-Za-z0-9.-]+.[A-Za-z]{2,}$/',
             'messag'=>'required|string',
             'phone' =>'required|regex:/^7[0-9]{8}$/',
 
@@ -49,7 +49,7 @@ class RegisterContactRequest extends FormRequest
             'message.required'=>'le message est requis',
             'nom.regex'=>'le format du nm est incorrect',
             'email.required'=>'l\'email est requis',
-            'email.email'=>"format email incorrect",
+            'email.regex'=>"format email incorrect",
             'phone.required'=>'le numéro de téléphone est requis',
             'phone.regex'=>'le format du numéro est incorrect',
 

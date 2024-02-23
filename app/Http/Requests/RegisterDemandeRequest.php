@@ -26,7 +26,7 @@ class RegisterDemandeRequest extends FormRequest
     {
         return [
             'details'=>'sometimes|string',
-            'email'=>'required|email',
+            'email'=>'required|regex:/^[A-Za-z]+[A-Za-z0-9._%+-]+@+[A-Za-z][A-Za-z0-9.-]+.[A-Za-z]{2,}$/',
             'date_fin'=>'required|date',
             'date_debut'=>'required|date',
             'nom'=>"required|regex:/^[A-Za-zÀ-ÖØ-öø-ÿ '-]+$/",
@@ -53,7 +53,7 @@ class RegisterDemandeRequest extends FormRequest
             'date_debut.required'=>'la date de debut est requise',
             'date_debut.date'=>'la date de debut a un format incorrect',
             'email.required'=>'l\'email est requis',
-            'email.email'=>"format email incorrect",
+            'email.regex'=>"format email incorrect",
             'nom.required'=>'le nom est requis',
             'nom.regex'=>'format du nom incorrect',
             'phone.required'=>'le numéro de téléphone est requis',

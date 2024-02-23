@@ -16,10 +16,12 @@ class PayeMail extends Mailable
     /**
      * Create a new message instance.
      */
-  public $number;
-    public function __construct($number)
+    public $data = [];
+    // public $number;
+    // public function __construct($number)
+    public function __construct($infos)
     {
-        $this->number = $number;
+        $this->data = $infos;
     }
 
     /**
@@ -43,7 +45,7 @@ class PayeMail extends Mailable
     // }
     public function build()
     {
-        return $this->view('payement')->with(['number' => $this->number]);
+        return $this->view('payement')->with(['data' => $this->data]);
     }
 
     /**
