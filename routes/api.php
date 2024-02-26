@@ -121,6 +121,8 @@ Route::post('news/store', [SouscrisController::class, 'store']);
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
+Route::get('/password/reset/success', [ForgotPasswordController::class,'showResetPasswordSuccess'])->name('password.reset.success');
+
 
 Route::get('payment', [PayementController::class, 'index'])->name('payment.index');
 Route::post('/checkout', [PayementController::class, 'payment'])->name('payment.submit');
