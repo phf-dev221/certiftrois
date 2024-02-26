@@ -222,12 +222,20 @@ public function changePassword(Request $request)
         'current_password' => 'required',
         'new_password' => 'required|different:current_password|regex:/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!])(.{8,})$/',
         'confirm_password' => 'required|same:new_password',
+    ],
+    [
+        'current_password.required' => 'Le champ mot de passe actuel est requis.',
+        'new_password.required' => 'Le champ nouveau mot de passe est requis.',
+        'new_password.different' => 'Le nouveau mot de passe doit être différent du mot de passe actuel.',
+        'new_password.regex' => 'Le nouveau mot de passe doit contenir au moins 8 caractères, avec au moins une lettre, un chiffre et un caractère spécial (@#$%^&+=!).',
+        'confirm_password.required' => 'Le champ confirmation du nouveau mot de passe est requis.',
+        'confirm_password.same' => 'Le champ confirmation du nouveau mot de passe doit correspondre au nouveau mot de passe.',
     ]);
 
     if ($validator->fails()) {
         return response()->json([
             'status_code' => 400,
-            'status_message' => 'Validation error',
+            'status_message' => 'Erreur de validation',
             'errors' => $validator->errors(),
         ], 400);
     }
