@@ -24,6 +24,7 @@ class BienRessource extends JsonResource
             "categorie" => $this->categorie->nom,
             "user" => $this->user->firstName,
             "userId" => $this->user->id,
+            "userMail" => $this->user->email,
             "userPhone" => $this->user->phone,
             'type_bien'=>$this->type_bien,
             "image" => $this->images ? $this->images->image : null,
