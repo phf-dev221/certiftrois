@@ -29,7 +29,7 @@ class RegisterBienRequest extends FormRequest
             'description'=>'required|string',
             'date'=>'required|date',
             'categorie_id'=>'required|integer',
-            'type_bien' => 'required|in:bien_trouve,bien_perdu',
+            'type_bien' => 'required|in:bien trouve,bien perdu',
             'lieu'=>'required|string',
             'image' => 'image|max:10000|mimes:jpeg,png,jpg',
         ];
@@ -48,7 +48,7 @@ class RegisterBienRequest extends FormRequest
         return [
             'libelle.required'=>'le libellé est requis',
             'type_bien.required"=>"le type de bien est requis',
-            'type_bien.in' => 'Le champ type de bien doit être soit "bien_trouve" soit "bien_perdu".',
+            'type_bien.in' => 'Le champ type de bien doit être soit "bien trouve" soit "bien perdu".',
             'description.required'=>'la description est requise',
             'libelle.string'=>'Format du libellé incorrect',
             'categorie_id.integer'=>'Format de la categorie incorrect',

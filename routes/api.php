@@ -33,7 +33,6 @@ Route::middleware(['auth:api', 'admin'])->group(function () {
     Route::post('categories/update/{categorie}', [CategorieController::class, 'update']);
     Route::post('categories/destroy/{categorie}', [CategorieController::class, 'destroy']);
     Route::post('categories/store', [CategorieController::class, 'store']);
-    Route::get('categories/index', [CategorieController::class, 'index']);
     
     /*contacts*/
     Route::get('contacts/index', [ContactController::class, 'index']);
@@ -43,7 +42,7 @@ Route::middleware(['auth:api', 'admin'])->group(function () {
     
     /*temoignages*/
     Route::post('temoignages/accept/{temoignage}', [TemoignageController::class, 'accept']);
-
+    
     /*roles*/
     Route::post('roles/destroy/{role}', [RoleController::class, 'destroy']);
     Route::get('roles/index', [RoleController::class, 'index']);
@@ -59,7 +58,7 @@ Route::middleware(['auth:api', 'admin'])->group(function () {
 });
 
 Route::middleware('auth:api')->group(function () {
-
+    
     Route::post('biens/store', [BienController::class, 'store']);
     Route::get('biens/bienUser', [BienController::class, 'bienUser']);
     Route::get('biens/bienUserPerdu', [BienController::class, 'bienUserPerdu']);//liste des biens perdu de l'utilisateur
@@ -130,3 +129,4 @@ Route::get('ipn', [PayementController::class, 'ipn'])->name('paytech-ipn');
 Route::get('payment-success/{code}', [PayementController::class, 'success'])->name('payment.success');
 Route::get('payment/{code}/success', [PayementController::class, 'paymentSuccessView'])->name('payment.success.view');
 Route::get('payment-cancel', [PayementController::class, 'cancel'])->name('paytech.cancel');
+Route::get('categories/index', [CategorieController::class, 'index']);
