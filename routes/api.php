@@ -33,6 +33,7 @@ Route::middleware(['auth:api', 'admin'])->group(function () {
     Route::post('categories/update/{categorie}', [CategorieController::class, 'update']);
     Route::post('categories/destroy/{categorie}', [CategorieController::class, 'destroy']);
     Route::post('categories/store', [CategorieController::class, 'store']);
+    Route::get('categories/show/{categorie}', [CategorieController::class, 'show']);
     
     /*contacts*/
     Route::get('contacts/index', [ContactController::class, 'index']);

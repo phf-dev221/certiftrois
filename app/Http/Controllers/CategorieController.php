@@ -27,10 +27,7 @@ class CategorieController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -52,7 +49,11 @@ class CategorieController extends Controller
      */
     public function show(Categorie $categorie)
     {
-        //
+        return response()->json([
+            'status_code' => 200,
+            'status_message' => 'Categorie sélectionnée',
+            'categorie' => $categorie
+        ]);
     }
 
     /**
