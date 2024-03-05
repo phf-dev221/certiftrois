@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "API EUREKA",
-        "description": "Ceci est la documentation d'une API REST qui permet de déclarer des objets trouvés",
+        "title": "Documentation EUREKA",
+        "description": "Ceci est la documentation d'une application de restitution de biens trouvés ou perdus",
         "version": "1.0.0"
     },
     "security": [
@@ -382,7 +382,7 @@
                                 }
                             },
                             "example": {
-                                "nomRole": "moniteur"
+                                "nomRole": "tiktokeur"
                             }
                         }
                     }
@@ -445,12 +445,29 @@
                         "name": "User-Agent",
                         "type": "string"
                     }
-                ]
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nomRole": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "nomRole": "tiktokeurnn"
+                            }
+                        }
+                    }
+                }
             }
         },
-        "/api/demandes/indexUser": {
+        "/api/demandes/pubPayes": {
             "get": {
-                "summary": "Liste des demandes d'un Utilisateur",
+                "summary": "Liste des publicités payées",
                 "description": "",
                 "responses": {
                     "200": {
@@ -482,7 +499,52 @@
                     }
                 },
                 "tags": [
-                    "Demande publicité"
+                    "publicité"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/demandes/pubAffichable": {
+            "get": {
+                "summary": "Liste des publicitées a publier",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "publicité"
                 ],
                 "parameters": [
                     {
@@ -495,7 +557,7 @@
         },
         "/api/demandes/show/{demande}": {
             "get": {
-                "summary": "Voir une demande",
+                "summary": "Voir une demande de publicité",
                 "description": "",
                 "responses": {
                     "200": {
@@ -527,7 +589,7 @@
                     }
                 },
                 "tags": [
-                    "Demande publicité"
+                    "publicité"
                 ],
                 "parameters": [
                     {
@@ -586,7 +648,7 @@
                     }
                 },
                 "tags": [
-                    "Demande publicité"
+                    "publicité"
                 ],
                 "parameters": [
                     {
@@ -604,7 +666,7 @@
         },
         "/api/demandes/refuse/{demande}": {
             "post": {
-                "summary": "Refuser une demande",
+                "summary": "Refuser une demande de publicité",
                 "description": "",
                 "responses": {
                     "201": {
@@ -645,7 +707,7 @@
                     }
                 },
                 "tags": [
-                    "Demande publicité"
+                    "publicité"
                 ],
                 "parameters": [
                     {
@@ -663,7 +725,7 @@
         },
         "/api/demandes/accept/{demande}": {
             "post": {
-                "summary": "Accepter une demande",
+                "summary": "Accepter une demande de publicité",
                 "description": "",
                 "responses": {
                     "201": {
@@ -704,7 +766,7 @@
                     }
                 },
                 "tags": [
-                    "Demande publicité"
+                    "publicité"
                 ],
                 "parameters": [
                     {
@@ -717,12 +779,29 @@
                         "name": "User-Agent",
                         "type": "string"
                     }
-                ]
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "montant": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "montant": 500
+                            }
+                        }
+                    }
+                }
             }
         },
         "/api/demandes/refusedDemande": {
             "get": {
-                "summary": "demandes refusées",
+                "summary": "demandes de pubs refusées",
                 "description": "",
                 "responses": {
                     "200": {
@@ -754,7 +833,7 @@
                     }
                 },
                 "tags": [
-                    "Demande publicité"
+                    "publicité"
                 ],
                 "parameters": [
                     {
@@ -767,7 +846,7 @@
         },
         "/api/demandes/acceptedDemande": {
             "get": {
-                "summary": "demandes acceptées",
+                "summary": "demandes de pubs acceptées",
                 "description": "",
                 "responses": {
                     "200": {
@@ -799,7 +878,7 @@
                     }
                 },
                 "tags": [
-                    "Demande publicité"
+                    "publicité"
                 ],
                 "parameters": [
                     {
@@ -812,7 +891,7 @@
         },
         "/api/demandes/index": {
             "get": {
-                "summary": "demandes en attente",
+                "summary": "demandes de pubs en attente",
                 "description": "",
                 "responses": {
                     "200": {
@@ -844,7 +923,7 @@
                     }
                 },
                 "tags": [
-                    "Demande publicité"
+                    "publicité"
                 ],
                 "parameters": [
                     {
@@ -857,7 +936,7 @@
         },
         "/api/demandes/update/{demande}": {
             "post": {
-                "summary": "Modifier une demande",
+                "summary": "Modifier une demande de publicité",
                 "description": "",
                 "responses": {
                     "201": {
@@ -898,7 +977,7 @@
                     }
                 },
                 "tags": [
-                    "Demande publicité"
+                    "publicité"
                 ],
                 "parameters": [
                     {
@@ -918,21 +997,45 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "duree": {
-                                        "type": "integer"
+                                    "date_debut": {
+                                        "type": "string"
                                     },
                                     "details": {
                                         "type": "string"
                                     },
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
                                     "email": {
+                                        "type": "string"
+                                    },
+                                    "date_fin": {
+                                        "type": "string"
+                                    },
+                                    "": {
                                         "type": "string"
                                     }
                                 }
                             },
                             "example": {
-                                "duree": 87,
-                                "details": "detailsodifié",
-                                "email": "leye@gmail.com"
+                                "date_debut": "2024/02/20",
+                                "details": "fchgvj",
+                                "nom": "hgvjhb",
+                                "phone": "778546200",
+                                "image": {
+                                    "type": "string",
+                                    "format": "binary"
+                                },
+                                "email": "hgujy@gmail.com",
+                                "date_fin": "2024/02/25",
+                                "": ""
                             }
                         }
                     }
@@ -941,7 +1044,7 @@
         },
         "/api/demandes/store": {
             "post": {
-                "summary": "creer une demande",
+                "summary": "creer une demande de publicité",
                 "description": "",
                 "responses": {
                     "201": {
@@ -982,7 +1085,7 @@
                     }
                 },
                 "tags": [
-                    "Demande publicité"
+                    "publicité"
                 ],
                 "parameters": [
                     {
@@ -997,25 +1100,95 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "duree": {
-                                        "type": "integer"
+                                    "date_debut": {
+                                        "type": "string"
                                     },
                                     "details": {
                                         "type": "string"
                                     },
                                     "email": {
                                         "type": "string"
+                                    },
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "date_fin": {
+                                        "type": "string"
                                     }
                                 }
                             },
                             "example": {
-                                "duree": 1,
-                                "details": "details",
-                                "email": "pro@gmail.com"
+                                "date_debut": "2024/02/21",
+                                "details": "xcvhkbjln",
+                                "email": "pro212@gmail.com",
+                                "nom": "Alpha NDIAYE",
+                                "phone": "778541235",
+                                "image": {
+                                    "type": "string",
+                                    "format": "binary"
+                                },
+                                "date_fin": "2024/02/23"
                             }
                         }
                     }
                 }
+            }
+        },
+        "/api/categories/show/{categorie}": {
+            "get": {
+                "summary": "voir une catégorie",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "categorie"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "categorie",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
             }
         },
         "/api/categories/store": {
@@ -1342,103 +1515,19 @@
                                 }
                             },
                             "example": {
-                                "nom": "tamba",
-                                "email": "tamba@gmail.com",
-                                "messag": "bonjour comment va ",
-                                "phone": 778546200
+                                "nom": "binta",
+                                "email": "binta@gmail.com",
+                                "messag": "bonjour comment vous va!!!! ",
+                                "phone": 708546200
                             }
                         }
                     }
                 }
             }
         },
-        "/api/pubs/update/{publicite}": {
-            "post": {
-                "summary": "Modifier une publicité",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Publicités"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "publicite",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "media": {
-                                        "type": "string",
-                                        "format": "binary"
-                                    },
-                                    "demande_id": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "media": {
-                                    "type": "string",
-                                    "format": "binary"
-                                },
-                                "demande_id": "2"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/pubs/index": {
+        "/api/biens/bienUser": {
             "get": {
-                "summary": "liste des publicités",
+                "summary": "Biens trouvés d'un utilisateur",
                 "description": "",
                 "responses": {
                     "200": {
@@ -1461,248 +1550,6 @@
                     },
                     "500": {
                         "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Publicités"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/pubs/invalide/{publicite}": {
-            "post": {
-                "summary": "invalider une publicité",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Publicités"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "publicite",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/pubs/show/{publicite}": {
-            "get": {
-                "summary": "voir une publicité",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Publicités"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "publicite",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/pubs/store": {
-            "post": {
-                "summary": "Creer une publicité",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Publicités"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "media": {
-                                        "type": "string",
-                                        "format": "binary"
-                                    },
-                                    "demande_id": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "media": {
-                                    "type": "string",
-                                    "format": "binary"
-                                },
-                                "demande_id": "2"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/biens/rendreBien/{bien}": {
-            "post": {
-                "summary": "Mettre un bien comme rendu",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1716,11 +1563,6 @@
                 ],
                 "parameters": [
                     {
-                        "in": "path",
-                        "name": "bien",
-                        "type": "string"
-                    },
-                    {
                         "in": "header",
                         "name": "User-Agent",
                         "type": "string"
@@ -1728,9 +1570,9 @@
                 ]
             }
         },
-        "/api/biens/bienUser": {
+        "/api/biens/bienUserPerdu": {
             "get": {
-                "summary": "Biens d'un utilisateur",
+                "summary": "Biens perdu d'un utilisateur",
                 "description": "",
                 "responses": {
                     "200": {
@@ -1776,65 +1618,6 @@
         "/api/biens/refuse/{bien}": {
             "post": {
                 "summary": "Refuser un bien",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Biens"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "bien",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/biens/accepte/{bien}": {
-            "post": {
-                "summary": "Accepter un bien",
                 "description": "",
                 "responses": {
                     "201": {
@@ -2150,6 +1933,250 @@
                 ]
             }
         },
+        "/api/biens/index_perdu/{categorie}": {
+            "get": {
+                "summary": "liste des biens perdus",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Biens"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "categorie",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {}
+                            },
+                            "example": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/biens/listeBiensTousType": {
+            "get": {
+                "summary": "liste des biens tous types",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Biens"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {}
+                            },
+                            "example": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/biens/trouves": {
+            "get": {
+                "summary": "liste des biens trouvés sans categorie",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Biens"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {}
+                            },
+                            "example": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/biens/perdus": {
+            "get": {
+                "summary": "liste des biens perdus sans categorie",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Biens"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {}
+                            },
+                            "example": {}
+                        }
+                    }
+                }
+            }
+        },
         "/api/biens/store": {
             "post": {
                 "summary": "déclarer bien",
@@ -2226,19 +2253,24 @@
                                     },
                                     "categorie_id": {
                                         "type": "string"
+                                    },
+                                    "type_bien": {
+                                        "type": "string"
                                     }
                                 }
                             },
                             "example": {
                                 "libelle": "oignon",
-                                "lieu": "mboro",
-                                "description": "description de l'oignon trouvé",
+                                "lieu": "kaolack",
+                                "description": "description du oignon trouvé",
                                 "date": "2023-01-12",
                                 "image": {
                                     "type": "string",
                                     "format": "binary"
                                 },
-                                "categorie_id": "4"
+                                "categorie_id": "7",
+                                "type_bien": "bien trouve",
+                                "": ""
                             }
                         }
                     }
@@ -2292,6 +2324,11 @@
                 ],
                 "parameters": [
                     {
+                        "in": "path",
+                        "name": "",
+                        "type": "string"
+                    },
+                    {
                         "in": "header",
                         "name": "User-Agent",
                         "type": "string"
@@ -2326,7 +2363,7 @@
         },
         "/api/forget-password": {
             "post": {
-                "summary": "reset password",
+                "summary": "réinitialisation mot de passe",
                 "description": "",
                 "responses": {
                     "201": {
@@ -2395,9 +2432,9 @@
                 }
             }
         },
-        "/api/users/whatsapp/5": {
+        "/api/users/whatsapp/{user}": {
             "post": {
-                "summary": "whatsapp",
+                "summary": "contact via whatsapp",
                 "description": "",
                 "responses": {
                     "201": {
@@ -2442,50 +2479,10 @@
                 ],
                 "parameters": [
                     {
-                        "in": "header",
-                        "name": "User-Agent",
+                        "in": "path",
+                        "name": "user",
                         "type": "string"
-                    }
-                ]
-            }
-        },
-        "/chatify": {
-            "get": {
-                "summary": "chatify",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
                     },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Users"
-                ],
-                "parameters": [
                     {
                         "in": "header",
                         "name": "User-Agent",
@@ -2565,13 +2562,25 @@
                                     },
                                     "firstName": {
                                         "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "confirmPassword": {
+                                        "type": "string"
                                     }
                                 }
                             },
                             "example": {
                                 "name": "binta",
                                 "phone": 777777789,
-                                "firstName": "binta"
+                                "firstName": "binta",
+                                "email": "binta@gmail.com",
+                                "password": "@zerty123",
+                                "confirmPassword": "@zerty123"
                             }
                         }
                     }
@@ -2973,7 +2982,7 @@
                             "example": {
                                 "name": "sall",
                                 "firstName": "Amadou",
-                                "phone": 786704665,
+                                "phone": 786708665,
                                 "email": "hamadhyfall21@gmail.com",
                                 "password": "@zerty123",
                                 "confirmPassword": "@zerty123"

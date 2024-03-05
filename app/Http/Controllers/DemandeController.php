@@ -31,7 +31,7 @@ class DemandeController extends Controller
                 'error' => $e->getMessage(),
                 'status_code' => 500,
                 'status_message' => 'Erreur lors de la récupération des publicites',
-            ],422);
+            ],500);
         }
     }
 
@@ -50,7 +50,7 @@ class DemandeController extends Controller
                 'error' => $e->getMessage(),
                 'status_code' => 422,
                 'status_message' => 'Erreur lors de la récupération des publicites',
-            ],422);
+            ],500);
         }
     }
 
@@ -69,7 +69,7 @@ class DemandeController extends Controller
                 'error' => $e->getMessage(),
                 'status_code' => 422,
                 'status_message' => 'Erreur lors de la récupération des publicites',
-            ],422);
+            ],500);
         }
     }
 
@@ -118,7 +118,7 @@ class DemandeController extends Controller
             return response()->json([
                 'status_code' => 200,
                 'status_message' => "Vous avez refusé cette publicite"
-            ]);
+            ],200);
         } catch (Exception $e) {
             return response()->json($e);
         }
@@ -137,9 +137,9 @@ class DemandeController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
-                'status_code' => 422,
+                'status_code' => 500,
                 'status_message' => 'Erreur lors de la récupération des publicites',
-            ],422);
+            ],500);
         }
     }
 
@@ -158,7 +158,7 @@ class DemandeController extends Controller
                 'error' => $e->getMessage(),
                 'status_code' => 422,
                 'status_message' => 'Erreur lors de la récupération des publicites',
-            ],422);
+            ],500);
         }
     }
 
@@ -225,7 +225,7 @@ class DemandeController extends Controller
                 'error' => $e->getMessage(),
                 'status_code' => 404,
                 'status_message' => 'publicite non trouvée',
-            ],422);
+            ],404);
         }
     }
 
@@ -282,9 +282,9 @@ class DemandeController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
-                'status_code' => 422,
+                'status_code' => 404,
                 'status_message' => 'Erreur lors de la suppression de la publicité',
-            ],422);
+            ],404);
         }
     }
 }

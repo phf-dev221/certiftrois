@@ -31,7 +31,7 @@ class RegisterBienRequest extends FormRequest
             'categorie_id'=>'required|integer',
             'type_bien' => 'required|in:bien trouve,bien perdu',
             'lieu'=>'required|string',
-            'image' => 'image|max:10000|mimes:jpeg,png,jpg',
+            'image' => 'sometimes',
         ];
     }
 
@@ -42,7 +42,7 @@ class RegisterBienRequest extends FormRequest
             'error'=>true,
             'message'=>'erreur de validation',
             'errorList'=>$validator->errors()
-        ]));
+        ],422));
     }
     public function messages(){
         return [
@@ -58,7 +58,6 @@ class RegisterBienRequest extends FormRequest
             'lieu.required'=>'le lieu est requis',
             'categorie_id.required'=>'la categorie est requise',
             'lieu.string'=>'Format lieu incorrect',
-            'image.required'=>"l'image est requise",
             'image.image'=>"le format de l'image est incorrect",
             'image.max'=>'la taille de l\'image est trop grande'
 

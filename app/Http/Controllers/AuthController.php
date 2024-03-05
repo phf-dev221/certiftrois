@@ -31,10 +31,10 @@ class AuthController extends Controller
         $users = User::all();
 
         return response()->json([
-            'status_code' => 201,
+            'status_code' => 200,
             'status_message' => 'liste des users',
             'utilisateurs' => $users
-        ]);
+        ],200);
     }
     /**
      * Get a JWT via given credentials.
@@ -103,7 +103,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
+        ],200);
     }
 
     public function register(RegisterUserRequest $request)
@@ -112,7 +112,7 @@ class AuthController extends Controller
 
             if ($request->password !== $request->confirmPassword) {
                 return response()->json([
-                    'status_code' => 400,
+                    'status_code' => 403,
                     'status_message' => 'Le mot de passe et la confirmation ne correspondent pas.',
                 ], 403);
             }
@@ -130,7 +130,7 @@ class AuthController extends Controller
                 'status_code' => 201,
                 'status_message' => 'utilisateur ajouté avec succes',
                 'status_body' => $user
-            ]);
+            ],201);
         } catch (Exception $e) {
             return response()->json([$e]);
         }
@@ -142,7 +142,7 @@ class AuthController extends Controller
             'status_code' => 200,
             'status_message' => 'Informations utilisateur recupérées avec succès',
             'user' => $user,
-        ]);
+        ],200);
     }
 
     public function update(RegisterUserRequest $request, User $user)
@@ -154,9 +154,9 @@ class AuthController extends Controller
                 'status_code' => 200,
                 'status_message' => 'Informations utilisateur mises à jour avec succès',
                 'user' => $user,
-            ]);
+            ],200);
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json(['error' => $e->getMessage()], 422);
         }
     }
 
@@ -172,7 +172,7 @@ class AuthController extends Controller
             return response()->json([
                 'status_code' => 200,
                 'status_message' => "Vous avez archivés cet utilisateur"
-            ]);
+            ],200);
         } catch (Exception $e) {
             return response()->json($e);
         }
@@ -185,7 +185,7 @@ class AuthController extends Controller
                 'status_code' => 200,
                 'status_message' => 'Voici la liste de tous les utilisateurs non archivés',
                 'utilisateurs' => User::where('isArchived', 0)->get(),
-            ]);
+            ],200);
         } catch (Exception $e) {
             return response()->json($e);
         }
@@ -198,7 +198,7 @@ class AuthController extends Controller
                 'status_code' => 200,
                 'status_message' => 'Voici la liste de tous les utilisateurs archivés',
                 'utilisateurs' => User::where('isArchived', 1)->get(),
-            ]);
+            ],200);
         } catch (Exception $e) {
             return response()->json($e);
         }
@@ -236,10 +236,10 @@ public function changePassword(Request $request)
 
     if ($validator->fails()) {
         return response()->json([
-            'status_code' => 400,
+            'status_code' => 422,
             'status_message' => 'Erreur de validation',
             'errors' => $validator->errors(),
-        ], 400);
+        ], 422);
     }
 
     $user = auth()->user();
@@ -257,7 +257,7 @@ public function changePassword(Request $request)
     return response()->json([
         'status_code' => 200,
         'status_message' => 'Mot de passe changé avec succes',
-    ]);
+    ],200);
 }
 
 }

@@ -24,13 +24,13 @@ class BienController extends Controller
         try {
             $biens = Bien::with(["images", 'categorie', 'user'])->where('statut', 'en attente')
                 ->where('categorie_id', $categorie->id)
-                ->where('estExpire',0)
-                ->where('type_bien','bien trouve')
+                ->where('estExpire', 0)
+                ->where('type_bien', 'bien trouve')
                 ->get();
 
             return response()->json([
                 'success' => true,
-                'status_body'=>'Biens trouvés acceptés',
+                'status_body' => 'Biens trouvés acceptés',
                 'data' => BienRessource::collection($biens),
             ], 200);
 
@@ -47,12 +47,12 @@ class BienController extends Controller
     {
         try {
             $biens = Bien::with(["images", 'categorie', 'user'])->where('statut', 'en attente')
-                ->where('estExpire',0)
+                ->where('estExpire', 0)
                 ->get();
 
             return response()->json([
                 'success' => true,
-                'status_body'=>'Liste de tous les biens',
+                'status_body' => 'Liste de tous les biens',
                 'data' => BienRessource::collection($biens),
             ], 200);
 
@@ -69,13 +69,13 @@ class BienController extends Controller
     {
         try {
             $biens = Bien::with(["images", 'categorie', 'user'])->where('statut', 'en attente')
-                ->where('estExpire',0)
-                ->where('type_bien','bien trouve')
+                ->where('estExpire', 0)
+                ->where('type_bien', 'bien trouve')
                 ->get();
 
             return response()->json([
                 'success' => true,
-                'status_body'=>'Biens trouvés sans categorie',
+                'status_body' => 'Biens trouvés sans categorie',
                 'data' => BienRessource::collection($biens),
             ], 200);
 
@@ -92,13 +92,13 @@ class BienController extends Controller
     {
         try {
             $biens = Bien::with(["images", 'categorie', 'user'])->where('statut', 'en attente')
-                ->where('estExpire',0)
-                ->where('type_bien','bien perdu')
+                ->where('estExpire', 0)
+                ->where('type_bien', 'bien perdu')
                 ->get();
 
             return response()->json([
                 'success' => true,
-                'status_body'=>'Biens perdus sans categorie',
+                'status_body' => 'Biens perdus sans categorie',
                 'data' => BienRessource::collection($biens),
             ], 200);
 
@@ -118,13 +118,13 @@ class BienController extends Controller
         try {
             $biens = Bien::with(["images", 'categorie', 'user'])->where('statut', 'en attente')
                 ->where('categorie_id', $categorie->id)
-                ->where('estExpire',0)
-                ->where('type_bien','bien perdu')
+                ->where('estExpire', 0)
+                ->where('type_bien', 'bien perdu')
                 ->get();
 
             return response()->json([
                 'success' => true,
-                'status_body'=>'Biens perdus acceptés',
+                'status_body' => 'Biens perdus acceptés',
                 'data' => BienRessource::collection($biens),
             ], 200);
 
@@ -158,10 +158,9 @@ class BienController extends Controller
             $bien->type_bien = $request->type_bien;
             $bien->user_id = auth()->user()->id;
             $bien->categorie_id = $request->categorie_id;
-            //  dd($bien);
-            $bien->save();
-
+  
             if ($request->hasFile('image')) {
+                $bien->save();
                 $imageFile = $request->file('image');
                 $imageName = time() . '_' . $imageFile->getClientOriginalName();
                 $imageFile->move(public_path('/imagesBiens'), $imageName);
@@ -174,12 +173,14 @@ class BienController extends Controller
                     'message' => "Bien enregistré avec succès",
                     'bien' => $bien,
                     'images' => $image,
-                ]);
+                ], 201);
             } else {
+                $bien->save();
                 return response()->json([
-                    'status_code' => 500,
-                    'status_message' => 'Erreur lors de l\'ajout de l\'imagesdu bien',
-                ]);
+                    'message' => "Bien enregistré avec succès",
+                    'bien' => $bien
+                ], 201);
+
             }
 
         }
@@ -208,10 +209,10 @@ class BienController extends Controller
         catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
-                'status_code' => 500,
+                'status_code' => 422,
                 'status_message' => 'Erreur lors de l\'ajout du bien',
                 // 'image' => $imagesData
-            ]);
+            ], 422);
         }
     }
 
@@ -238,7 +239,7 @@ class BienController extends Controller
                 'error' => $e->getMessage(),
                 'status_code' => 404, // Not Found
                 'status_message' => 'Bien non trouvé',
-            ]);
+            ], 404);
         }
     }
 
@@ -256,11 +257,11 @@ class BienController extends Controller
             $bien = Bien::findOrFail($id);
 
             if ($bien->user_id === auth()->user()->id) {
-                $bien->update($request->only(['libelle', 'description', 'date', 'lieu', 'categorie_id','type']));
-                
+                $bien->update($request->only(['libelle', 'description', 'date', 'lieu', 'categorie_id', 'type']));
+
                 if ($request->hasFile('image')) {
                     $bien->images()->delete();
-                    
+
                     $image = new Image();
                     $imageFile = $request->file('image');
                     $imageName = time() . '_' . $imageFile->getClientOriginalName();
@@ -284,9 +285,9 @@ class BienController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
-                'status_code' => 500,
+                'status_code' => 422,
                 'status_message' => 'Erreur lors de la mise à jour du bien',
-            ]);
+            ], 422);
         }
     }
 
@@ -304,13 +305,13 @@ class BienController extends Controller
             return response()->json([
                 'status_code' => 204,
                 'status_message' => 'Bien supprimé avec succès',
-            ]);
+            ], 204);
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
                 'status_code' => 404, // Not Found
                 'status_message' => 'Bien non trouvé ou erreur lors de la suppression',
-            ]);
+            ], 404);
         }
     }
 
@@ -331,20 +332,20 @@ class BienController extends Controller
         return response()->json([
             'status code' => 200,
             'status message' => "La publication du bien a été refusé",
-        ]);
+        ], 200);
     }
     public function bienUser()
     {
         $biens = Bien::with(["images", 'categorie', 'user'])
             ->where('user_id', auth()->user()->id)
             ->where('statut', 'en attente')
-            ->where('type_bien','bien trouve')
-            ->where('estExpire',0)
+            ->where('type_bien', 'bien trouve')
+            ->where('estExpire', 0)
             ->get();
 
         return response()->json([
             'success' => true,
-            'status_body'=>'les biens trouvés de l\'utilisateur',
+            'status_body' => 'les biens trouvés de l\'utilisateur',
             'data' => BienRessource::collection($biens),
         ], 200);
     }
@@ -354,13 +355,13 @@ class BienController extends Controller
         $biens = Bien::with(["images", 'categorie', 'user'])
             ->where('user_id', auth()->user()->id)
             ->where('statut', 'en attente')
-            ->where('type_bien','bien perdu')
-            ->where('estExpire',0)
+            ->where('type_bien', 'bien perdu')
+            ->where('estExpire', 0)
             ->get();
 
         return response()->json([
             'success' => true,
-            'status_body'=>'les biens perdus de l\'utilisateur',
+            'status_body' => 'les biens perdus de l\'utilisateur',
             'data' => BienRessource::collection($biens),
         ], 200);
     }
