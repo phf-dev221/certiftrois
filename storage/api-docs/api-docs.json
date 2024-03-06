@@ -1833,7 +1833,7 @@
                 }
             }
         },
-        "": {
+        "/api/biens/show/{bien}": {
             "get": {
                 "summary": "récupérer un bien",
                 "description": "",
@@ -1980,18 +1980,7 @@
                         "name": "User-Agent",
                         "type": "string"
                     }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {}
-                            },
-                            "example": {}
-                        }
-                    }
-                }
+                ]
             }
         },
         "/api/biens/listeBiensTousType": {
@@ -2041,18 +2030,7 @@
                         "name": "User-Agent",
                         "type": "string"
                     }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {}
-                            },
-                            "example": {}
-                        }
-                    }
-                }
+                ]
             }
         },
         "/api/biens/trouves": {
@@ -2102,18 +2080,7 @@
                         "name": "User-Agent",
                         "type": "string"
                     }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {}
-                            },
-                            "example": {}
-                        }
-                    }
-                }
+                ]
             }
         },
         "/api/biens/perdus": {
@@ -2163,18 +2130,7 @@
                         "name": "User-Agent",
                         "type": "string"
                     }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {}
-                            },
-                            "example": {}
-                        }
-                    }
-                }
+                ]
             }
         },
         "/api/biens/store": {
