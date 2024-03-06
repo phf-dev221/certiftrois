@@ -21,10 +21,11 @@ class BienFactory extends Factory
             "lieu"=> fake()->name(),
             "description"=> fake()->text(),
             "date"=> fake()->date(),
-            "categorie_id"=>2,
+            "categorie_id"=>8,
             "statut"=>fake()->randomElement(['en attente', 'accepte','refuse']),
-            "user_id"=>15,
-            "rendu"=>0
+            "user_id"=>223,
+            "estExpire"=>0,
+            "type_bien"=>fake()->randomElement(['bien trouve', 'bien perdu'])
         ];
     }
 }

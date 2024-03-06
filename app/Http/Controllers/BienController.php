@@ -257,7 +257,7 @@ class BienController extends Controller
             $bien = Bien::findOrFail($id);
 
             if ($bien->user_id === auth()->user()->id) {
-                $bien->update($request->only(['libelle', 'description', 'date', 'lieu', 'categorie_id', 'type']));
+                $bien->update($request->only(['libelle', 'description', 'date', 'lieu', 'categorie_id', 'type_bien']));
 
                 if ($request->hasFile('image')) {
                     $bien->images()->delete();

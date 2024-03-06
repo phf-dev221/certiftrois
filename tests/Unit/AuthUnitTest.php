@@ -99,28 +99,28 @@ class AuthUnitTest extends TestCase
         $storeUserRequest = new RegisterUserRequest([
             'name' => 'jean',
             'firstName' => 'mendy',
-            "phone"=>758120200,
-            'email' => 'timera@gmail.com',
+            "phone"=>777724477,
+            'email' => 'bodian@gmail.com',
             'isArchived'=>0,
             'role_id'=>2,
             'email_verified_at' => now(),
-            'password' => 'password', // Un simple mot de passe sans hash ici
-            'confirmPassword' => 'password', // Confirmation correspondant
+            'password' => '@zerty123', 
+            'confirmPassword' => '@zerty123', 
         ]);
     
         $response = $this->authController->register($storeUserRequest);
       
         $this->assertInstanceOf(JsonResponse::class, $response);
     
-        // Vérifiez si le code de statut est 201 (Créé) en cas de succès
+
         if ($response->getStatusCode() == 201) {
             $responseData = $response->getData(true);
             $this->assertArrayHasKey('status_message', $responseData);
             $this->assertEquals('utilisateur ajouté avec succes', $responseData['status_message']);
             $this->assertArrayHasKey('status_body', $responseData);
-            // Vous pouvez ajouter d'autres assertions pour vérifier les détails de l'utilisateur ajouté
+           
         } else {
-            // En cas d'erreur, affichez le message d'erreur
+           
             $responseData = $response->getData(true);
             $this->assertArrayHasKey('status_message', $responseData);
             $this->assertEquals('Le mot de passe et la confirmation ne correspondent pas.', $responseData['status_message']);
